@@ -116,6 +116,14 @@ img {
   align-items: center;
 }
 
+.hero-single {
+  grid-template-columns: 1fr;
+}
+
+.hero-single .hero-copy {
+  max-width: 40rem;
+}
+
 .eyebrow,
 .section-heading p,
 .footer-title {
@@ -387,6 +395,50 @@ img {
   padding: 1.25rem 0 3rem;
 }
 
+.content-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.content-card {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08);
+}
+
+.content-card h2 {
+  margin: 0 0 0.9rem;
+  font-size: 1.12rem;
+}
+
+.content-card p {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.content-card p a {
+  color: var(--brand-night);
+  font-weight: 700;
+}
+
+.content-card ul {
+  margin: 0.8rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.content-card li + li {
+  margin-top: 0.35rem;
+}
+
+.content-card strong {
+  color: var(--text);
+}
+
 .card-grid {
   display: grid;
   gap: 1rem;
@@ -424,6 +476,17 @@ img {
   margin: 0.7rem 0 0;
   color: var(--muted);
   line-height: 1.8;
+}
+
+.page-back {
+  margin-top: 1.25rem;
+}
+
+.back-button {
+  min-width: 0;
+  padding: 0.7rem 1.1rem;
+  font-size: 0.92rem;
+  border-radius: 999px;
 }
 
 .site-footer p {
