@@ -253,6 +253,7 @@ img {
   border-radius: var(--radius-lg);
   box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
 }
 
 .link-card {
@@ -266,6 +267,7 @@ img {
   height: 42px;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   border-radius: 50%;
   background: var(--panel-soft);
   color: var(--brand-deep);
@@ -406,6 +408,7 @@ img {
   border-radius: var(--radius-lg);
   box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
 }
 
 .info-card:hover {
@@ -444,6 +447,12 @@ img {
   margin-bottom: 0.8rem;
   color: white;
   font-weight: 700;
+}
+
+.site-footer .footer-grid > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 @media (max-width: 980px) {
