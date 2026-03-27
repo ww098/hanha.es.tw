@@ -8,6 +8,7 @@
   --brand: #6eb7d8;
   --brand-deep: #1a9bb8;
   --brand-night: #16384b;
+  --link: #2d546c;
   --shadow: 0 22px 60px rgba(22, 56, 75, 0.12);
   --radius-xl: 28px;
   --radius-lg: 20px;
@@ -32,7 +33,7 @@ body {
 }
 
 a {
-  color: var(--brand-deep);
+  color: var(--link);
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
@@ -429,7 +430,7 @@ img {
 }
 
 .content-card p a {
-  color: var(--brand-night);
+  color: var(--link);
   font-weight: 700;
 }
 
