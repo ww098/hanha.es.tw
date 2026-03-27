@@ -100,6 +100,11 @@ img {
   font-size: 0.95rem;
 }
 
+.main-nav a.active {
+  color: var(--brand-night);
+  font-weight: 800;
+}
+
 .hero {
   padding: 4.5rem 0 3rem;
 }
@@ -146,6 +151,18 @@ img {
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 2rem;
+}
+
+.mini-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.mini-links a {
+  color: var(--brand-night);
+  font-weight: 700;
 }
 
 .button {
@@ -353,6 +370,59 @@ img {
   color: rgba(255, 255, 255, 0.92);
 }
 
+.page-hero {
+  padding: 4rem 0 1.5rem;
+}
+
+.page-intro {
+  max-width: 42rem;
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: 1.02rem;
+}
+
+.page-section {
+  padding: 1.25rem 0 3rem;
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.two-up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.three-up {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.info-card {
+  display: block;
+  padding: 1.4rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-2px);
+}
+
+.info-card strong {
+  display: block;
+  font-size: 1.06rem;
+}
+
+.info-card p {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
 .site-footer p {
   margin: 0.28rem 0;
   color: rgba(255, 255, 255, 0.76);
@@ -385,6 +455,11 @@ img {
 
   .link-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .two-up,
+  .three-up {
+    grid-template-columns: 1fr;
   }
 
   .main-nav {
