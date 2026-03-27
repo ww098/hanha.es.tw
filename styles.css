@@ -440,7 +440,7 @@ img {
 }
 
 .footer-mail {
-  display: inline-block;
+  display: block;
   margin-bottom: 0.8rem;
   color: white;
   font-weight: 700;
