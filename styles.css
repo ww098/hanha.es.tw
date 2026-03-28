@@ -485,6 +485,7 @@ img {
 /* 手機專屬區塊（桌機隱藏） */
 .mobile-only-buttons {
   display: none;
+  gap: 1rem; /* 預設按鈕間距 */
 }
 
 /* 手機版才顯示 */
@@ -492,36 +493,28 @@ img {
 
   /* 顯示整個區塊 */
   .mobile-only-buttons {
-    display: block;
+    display: flex;            /* 改成 flex 方便排列 */
+    flex-direction: column;   /* 垂直排列 */
+    align-items: stretch;     /* 讓按鈕撐滿容器寬度 */
+    gap: 1rem;                /* 按鈕間距 */
     margin-top: 1rem;
-  }
-
-  /* 🔥 真正控制按鈕排列的地方（重點） */
-  .mobile-only-buttons .container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* 🔥 所有按鈕統一間距（不管 info-card 還是 button） */
-  .mobile-only-buttons .container > * + * {
-    margin-top: 1rem;
-  }
-
-  /* 🔥 防止 Safari 爆版 */
-  .mobile-only-buttons .button,
-  .mobile-only-buttons .info-card {
+    padding: 0 1rem;          /* 左右內邊距，防止爆版 */
     box-sizing: border-box;
   }
 
-  /* 🔥 如果你想要滿版按鈕（可選） */
+  /* 所有按鈕統一間距（不管 info-card 還是 button） */
+  .mobile-only-buttons > * + * {
+    margin-top: 0; /* 已經用 gap，不需要額外 margin */
+  }
+
+  /* info-card 和 button 統一風格 */
+  .mobile-only-buttons .info-card,
   .mobile-only-buttons .button {
-    width: 100%;
+    width: 100%;              /* 滿版寬度 */
+    padding: 0.95rem 1.4rem;  /* 跟頁面其他按鈕一致 */
+    font-size: 0.95rem;       /* 字體大小統一 */
+    text-align: center;       /* 文字置中 */
+    box-sizing: border-box;   /* 防止 padding 超出 */
   }
 
-  /* 🔥 info-card 不要被撐爆 */
-  .mobile-only-buttons .info-card {
-    width: auto;
-  }
 }
-
-
