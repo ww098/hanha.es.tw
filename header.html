@@ -8,11 +8,11 @@
       </div>
     </a>
 
-    <button class="menu-toggle" aria-label="開啟選單">
+    <button class="menu-toggle" id="mobile-btn">
       <span class="hamburger"></span>
     </button>
 
-    <nav class="main-nav" aria-label="主導覽">
+    <nav class="main-nav" id="mobile-nav">
       <a href="./index.html">首頁</a>
       <a href="./new-students.html">新生專區</a>
       <a href="./transfer.html">轉學專區</a>
@@ -20,29 +20,19 @@
       <a class="active" href="./about.html">關於我們</a>
     </nav>
   </div>
-  <div class="nav-overlay"></div>
 </header>
 
 <script>
-  // 這裡寫在 header.html 內部，確保 fetch 完後立刻執行
+  // 使用最直接的 ID 綁定，避免 iPhone 上失效
   (function() {
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.main-nav');
-    const overlay = document.querySelector('.nav-overlay');
+    const btn = document.getElementById('mobile-btn');
+    const nav = document.getElementById('mobile-nav');
 
-    if (toggle) {
-      toggle.onclick = function() {
-        toggle.classList.toggle('active');
+    if (btn && nav) {
+      btn.onclick = function(e) {
+        e.preventDefault();
+        btn.classList.toggle('active');
         nav.classList.toggle('active');
-        overlay.classList.toggle('active');
-      };
-    }
-    
-    if (overlay) {
-      overlay.onclick = function() {
-        toggle.classList.remove('active');
-        nav.classList.remove('active');
-        overlay.classList.remove('active');
       };
     }
   })();
