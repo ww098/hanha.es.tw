@@ -1,6 +1,6 @@
-<div class="site-header">
+<header class="site-header">
   
-  <div class="container"> 
+  <div class="container">
     
     <div class="nav-shell">
       
@@ -24,7 +24,9 @@
         <span class="hamburger"></span>
       </button>
       
-    </div> </div> </div> <nav class="mobile-nav-panel" id="mobileNav">
+    </div> </div> </header>
+
+<nav class="mobile-nav-panel" id="mobileNav">
   <a href="./index.html">首頁</a>
   <a href="./new-students.html">新生專區</a>
   <a href="./transfer.html">轉學專區</a>
@@ -44,6 +46,7 @@
       btn.classList.toggle('is-active');
       nav.classList.toggle('is-active');
       overlay.classList.toggle('is-active');
+      // 防止手機開啟選單時背景還能捲動
       document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
     }
 
