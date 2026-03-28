@@ -13,18 +13,29 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
-  </head>
- <body>
- <div id="header-placeholder"></div>
+ <header class="site-header" id="header-placeholder">
+  </header>
+
 <script>
   fetch('./header.html')
     .then(res => res.text())
     .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-      // 執行載入後的腳本
-      const scripts = document.getElementById('header-placeholder').querySelectorAll('script');
-      scripts.forEach(s => eval(s.innerText));
-    });
+      const container = document.getElementById('header-placeholder');
+      container.innerHTML = data;
+
+      // 2. 針對 Safari 強化：手動提取並執行 script
+      const scripts = container.querySelectorAll('script');
+      scripts.forEach(oldScript => {
+        const newScript = document.createElement('script');
+        // 複製原本 script 的內容
+        newScript.textContent = oldScript.textContent;
+        // 將新 script 插入 body 尾端強制執行
+        document.body.appendChild(newScript);
+        // 執行完後移除，保持頁面乾淨
+        oldScript.remove();
+      });
+    })
+    .catch(err => console.error("導覽列載入失敗:", err));
 </script>
   
   </body>
