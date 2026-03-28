@@ -8,7 +8,15 @@
       </div>
     </a>
 
-    <button class="menu-toggle" id="menuBtn">
+    <nav class="desktop-nav">
+      <a href="./index.html">首頁</a>
+      <a href="./new-students.html">新生專區</a>
+      <a href="./transfer.html">轉學專區</a>
+      <a href="./registration.html">報名專區</a>
+      <a class="active" href="./about.html">關於我們</a>
+    </nav>
+
+    <button class="menu-toggle" id="menuBtn" aria-label="切換選單">
       <span class="hamburger"></span>
     </button>
   </div>
@@ -27,6 +35,7 @@
 <div class="nav-overlay" id="navOverlay"></div>
 
 <script>
+  // 手機選單開關邏輯
   const btn = document.getElementById('menuBtn');
   const nav = document.getElementById('mainNav');
   const overlay = document.getElementById('navOverlay');
@@ -36,7 +45,7 @@
     btn.classList.toggle('active');
     nav.classList.toggle('active');
     overlay.classList.toggle('active');
-    // 防止手機版開啟選單時背景還能滾動
+    // 開啟選單時禁止後方頁面捲動
     document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
   }
 
