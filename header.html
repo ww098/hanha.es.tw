@@ -8,53 +8,52 @@
       </div>
     </a>
 
-    <button class="menu-toggle" id="menuBtn">
-      <span class="hamburger"></span>
-    </button>
-
-    <nav class="main-nav" id="mainNav">
+    <nav class="desktop-nav">
       <a href="./index.html">首頁</a>
       <a href="./new-students.html">新生專區</a>
       <a href="./transfer.html">轉學專區</a>
       <a href="./registration.html">報名專區</a>
       <a href="./about.html">關於我們</a>
     </nav>
+
+    <button class="menu-toggle" id="menuBtn">
+      <span class="hamburger"></span>
+    </button>
   </div>
-  <div class="nav-overlay" id="navOverlay"></div>
 </header>
+
+<nav class="mobile-nav-panel" id="mobileNav">
+  <a href="./index.html">首頁</a>
+  <a href="./new-students.html">新生專區</a>
+  <a href="./transfer.html">轉學專區</a>
+  <a href="./registration.html">報名專區</a>
+  <a href="./about.html">關於我們</a>
+</nav>
+
+<div class="nav-overlay" id="navOverlay"></div>
 
 <script>
   (function() {
     const btn = document.getElementById('menuBtn');
-    const nav = document.getElementById('mainNav');
+    const mobileNav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
 
-    if (btn && nav && overlay) {
-      function toggleMenu() {
-        btn.classList.toggle('active');
-        nav.classList.toggle('active');
-        overlay.classList.toggle('active');
-        
-        // 禁止捲動
-        if (nav.classList.contains('active')) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = '';
-        }
-      }
-
-      btn.onclick = toggleMenu;
-      overlay.onclick = toggleMenu;
-
-      // 自動同步 active 狀態
-      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-      document.querySelectorAll('.main-nav a').forEach(link => {
-        if (link.getAttribute('href').includes(currentPath)) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
+    function toggleMenu() {
+      btn.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
     }
+
+    if(btn) btn.onclick = toggleMenu;
+    if(overlay) overlay.onclick = toggleMenu;
+
+    // 自動同步 active 狀態 (電腦與手機同時套用)
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a').forEach(link => {
+      if (link.getAttribute('href').includes(currentPath)) {
+        link.classList.add('active');
+      }
+    });
   })();
 </script>
