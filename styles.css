@@ -575,13 +575,14 @@ img {
   }
 }
 /* --- 基礎設定 --- */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
 
 .site-header {
   background: rgba(255, 255, 255, 0.85) !important;
   -webkit-backdrop-filter: blur(15px) !important;
   backdrop-filter: blur(15px) !important;
+  position: -webkit-sticky; /* Safari 專用 */
   position: sticky;
   top: 0;
   width: 100% !important;
@@ -590,6 +591,7 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 }
 
 .nav-shell {
+  display: -webkit-flex !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
@@ -604,7 +606,7 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 .brand img { width: 50px !important; height: 50px !important; flex-shrink: 0 !important; margin-right: 12px; }
 .brand strong { font-size: 1.2rem; white-space: nowrap; }
 
-/* --- A. 電腦版導覽列 (橫排) --- */
+/* --- A. 電腦版導覽列 --- */
 .desktop-nav { display: flex !important; align-items: center !important; }
 .desktop-nav a {
   margin-left: 25px;
@@ -617,12 +619,13 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 }
 .desktop-nav a.active { color: #0056b3 !important; font-weight: 700 !important; }
 
-/* --- B. 手機版漢堡按鈕 --- */
+/* --- B. 手機漢堡按鈕 --- */
 .menu-toggle {
   display: none;
   width: 44px; height: 44px;
   background: none !important; border: none !important;
   cursor: pointer; position: relative; z-index: 3001 !important;
+  -webkit-appearance: none; /* 移除 Safari 預設按鈕外觀 */
 }
 .hamburger, .hamburger::before, .hamburger::after {
   content: ''; display: block; width: 24px; height: 2px;
@@ -633,37 +636,48 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 .hamburger::after { top: 8px; }
 
 .menu-toggle.active .hamburger { background: transparent !important; }
-.menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
-.menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
+.menu-toggle.active .hamburger::before { -webkit-transform: rotate(45deg); transform: rotate(45deg); top: 0; }
+.menu-toggle.active .hamburger::after { -webkit-transform: rotate(-45deg); transform: rotate(-45deg); top: 0; }
 
-/* --- C. 手機版側邊面板 (垂直分行) --- */
+/* --- C. 手機版側邊面板 (Safari 專屬修正) --- */
 .mobile-nav-panel {
   position: fixed !important;
   top: 0; right: 0;
-  width: 280px !important; height: 100vh !important;
-  background: #ffffff !important;
+  width: 280px !important; 
+  height: 100% !important; /* Safari 使用 100% 比 100vh 穩 */
+  background-color: #ffffff !important;
   z-index: 3000 !important;
-  display: flex !important;
-  flex-direction: column !important; /* 確保垂直分行 */
+  
+  /* 強制垂直排列 */
+  display: block !important; 
   padding-top: 100px !important;
+  
   visibility: hidden !important;
-  transform: translateX(100%) !important;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
   transition: transform 0.3s ease, visibility 0.3s !important;
   box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
-.mobile-nav-panel.active { visibility: visible !important; transform: translateX(0) !important; }
+.mobile-nav-panel.active { 
+  visibility: visible !important; 
+  -webkit-transform: translateX(0) !important;
+  transform: translateX(0) !important; 
+}
 
 .mobile-nav-panel a {
-  display: block !important; /* 關鍵：強制每個連結佔據一行 */
-  width: 100%;
-  padding: 18px 40px !important; /* 增加點擊面積 */
+  display: block !important;
+  width: 100% !important;
+  padding: 20px 40px !important;
   text-decoration: none !important;
   color: #333 !important;
   font-size: 1.15rem !important;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  text-align: left; /* 改為靠左對齊，較符合手機操作習慣 */
+  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  text-align: left !important;
+  line-height: 1.5 !important;
+  clear: both; /* 確保不被浮動元素干擾 */
 }
+
 .mobile-nav-panel a.active { 
   background-color: rgba(0, 86, 179, 0.05); 
   color: #0056b3 !important; 
