@@ -15,15 +15,28 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
  <body>
-  <div id="site-header"></div>
-<script>
-  fetch('./header.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('site-header').innerHTML = data;
-      // 腳本會自動執行 header.html 裡的 <script>
-    });
-</script>
+  <div id="header-container"></div>
+
+  <script>
+    // 萬用載入器
+    fetch('./header.html')
+      .then(response => {
+        if (!response.ok) throw new Error('連線錯誤');
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('header-container').innerHTML = html;
+        
+        // 額外確保：如果是 iPhone 或是舊版安卓，載入後重新執行一次 script 標籤
+        const scripts = document.getElementById('header-container').getElementsByTagName('script');
+        for (let i = 0; i < scripts.length; i++) {
+          eval(scripts[i].innerText);
+        }
+      })
+      .catch(err => console.warn('載入失敗:', err));
+  </script>
+  
+  </body>
 
     <main>
       <section class="page-hero">
