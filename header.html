@@ -1,7 +1,10 @@
 <div class="nav-shell">
   <a class="brand" href="./index.html">
     <img src="./home-preview.png" alt="校徽">
-    <strong>寒合國小</strong>
+    <div class="brand-text">
+      <span class="brand-en">Hanha Elementary School</span>
+      <strong>寒合國小</strong>
+    </div>
   </a>
 
   <nav class="desktop-nav">
@@ -37,15 +40,16 @@
       btn.classList.toggle('is-active');
       nav.classList.toggle('is-active');
       mask.classList.toggle('is-active');
+      document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
     }
 
     if(btn) btn.onclick = toggle;
     if(mask) mask.onclick = toggle;
 
-    // 自動偵測當前頁面
-    const current = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('nav a').forEach(a => {
-      if(a.getAttribute('href').includes(current)) a.classList.add('active');
+    // 自動偵測當前頁面 Active
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a').forEach(a => {
+      if(a.getAttribute('href').includes(currentPath)) a.classList.add('active');
     });
   })();
 </script>
