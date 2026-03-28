@@ -561,46 +561,50 @@ img {
   /* 確保原版卡片在手機版變單欄 */
   .link-grid { grid-template-columns: 1fr !important; }
 }
+/* Header 基本樣式 */
 .site-header {
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #eee;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .nav-shell {
-  max-width: 1200px;  /* 桌機版導覽寬度限制 */
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 左右兩邊分開 */
-  padding: 10px 20px; /* 上下/左右間距 */
+  justify-content: space-between;
+  padding: 12px 20px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px; /* 校徽與文字間距 */
+  gap: 10px;
   text-decoration: none;
   color: #333;
 }
 
-.brand-text span {
+.brand-text span.brand-kicker {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 400;
-  color: #666;
+  color: #999;
 }
 
 .brand-text strong {
   display: block;
   font-size: 1.2rem;
   font-weight: 700;
+  color: #333;
 }
 
-/* 桌機版主導覽 */
+/* 主導覽桌機版 */
 .main-nav {
   display: flex;
-  gap: 25px;  /* 導覽間距 */
+  gap: 25px;
+  font-size: 0.95rem;
 }
 
 .main-nav a {
@@ -610,12 +614,52 @@ img {
 }
 
 .main-nav a.active {
-  color: #007aff; /* 高亮顏色 */
+  color: #007aff;
 }
 
 /* 漢堡按鈕桌機隱藏 */
 .menu-toggle {
   display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-toggle .hamburger,
+.menu-toggle .hamburger::before,
+.menu-toggle .hamburger::after {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle .hamburger::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+}
+
+.menu-toggle .hamburger::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+}
+
+/* 漢堡 X 狀態 */
+.menu-toggle.is-active .hamburger {
+  background-color: transparent;
+}
+
+.menu-toggle.is-active .hamburger::before {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.is-active .hamburger::after {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* 手機版 */
@@ -638,10 +682,8 @@ img {
     padding-top: 60px;
     transition: left 0.3s ease;
     z-index: 999;
-  }
-
-  .mobile-nav-panel.is-active {
-    left: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .mobile-nav-panel a {
@@ -649,6 +691,10 @@ img {
     padding: 15px 20px;
     text-decoration: none;
     color: #333;
+  }
+
+  .mobile-nav-panel.is-active {
+    left: 0;
   }
 
   .nav-overlay {
