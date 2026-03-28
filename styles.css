@@ -574,108 +574,167 @@ img {
     width: 100%;
   }
 }
-/* --- 全域導覽列樣式 (電腦與手機通用風格) --- */
+/* --- 基礎字體與重置 (確保風格統一) --- */
+body {
+  margin: 0;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+/* --- 導覽列主體：高質感透明磨砂風格 --- */
 .site-header {
-  background: rgba(255, 255, 255, 0.85); /* 提高透明度，增加質感 */
-  backdrop-filter: blur(10px); /* 讓背景有磨砂玻璃感，iPhone 效果極佳 */
-  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.8); /* 80% 透明白 */
+  -webkit-backdrop-filter: blur(15px);        /* iPhone 磨砂效果 */
+  backdrop-filter: blur(15px);                /* 安卓/電腦 磨砂效果 */
   position: sticky;
   top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  width: 100%;
+  z-index: 2000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.3s;
 }
 
 .nav-shell {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 70px; /* 固定高度防止跳動 */
 }
 
-/* 防止左上角圖片被壓縮 */
+/* --- 左上角 Logo：解決壓扁問題 --- */
 .brand {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #333;
-  flex-shrink: 0; /* 強制不被壓縮 */
+  flex-shrink: 0; /* 關鍵：絕對不允許縮小 */
+  min-width: fit-content;
 }
 
 .brand img {
-  width: 50px; /* 您可以根據需求調整寬度 */
-  height: auto;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
   margin-right: 12px;
-  flex-shrink: 0; 
+  flex-shrink: 0; /* 再次確保圖片不變形 */
 }
 
-/* 電腦版導覽列 */
+.brand-kicker {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+.brand strong {
+  font-size: 1.2rem;
+  font-family: 'Noto Serif TC', serif;
+  display: block;
+  line-height: 1.2;
+}
+
+/* --- 電腦版導覽列 (寬度 > 992px) --- */
+.main-nav {
+  display: flex;
+  align-items: center;
+}
+
 .main-nav a {
-  margin-left: 20px;
   text-decoration: none;
   color: #444;
   font-weight: 500;
+  margin-left: 28px;
+  font-size: 1rem;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.main-nav a.active, .main-nav a:hover {
+  color: #0056b3; /* 校網主色調預設 */
+}
+
+/* --- 漢堡選單按鈕 --- */
+.menu-toggle {
+  display: none; /* 電腦版隱藏 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2100;
+  -webkit-tap-highlight-color: transparent; /* 移除手機點擊陰影 */
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #333;
+  position: relative;
   transition: 0.3s;
 }
 
-/* --- 手機版專屬 (iPhone 15 Pro Max 適用) --- */
-@media (max-width: 992px) { /* 稍微調大斷點，確保大螢幕手機也適用 */
+.hamburger::before, .hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: #333;
+  left: 0;
+  transition: 0.3s;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { bottom: 8px; }
+
+/* 漢堡變成 X 動畫 */
+.menu-toggle.active .hamburger { background: transparent; }
+.menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
+.menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
+
+/* --- 手機版響應式設計 (iPhone & 各牌手機適用) --- */
+@media (max-width: 992px) {
   .menu-toggle {
-    display: flex; /* 改用 flex 確保居中 */
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1100;
+    display: block;
   }
 
-  /* 漢堡圖案製作 */
-  .hamburger {
-    width: 24px;
-    height: 2px;
-    background: #333;
-    position: relative;
-  }
-  .hamburger::before, .hamburger::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 2px;
-    background: #333;
-    left: 0;
-    transition: 0.3s;
-  }
-  .hamburger::before { top: -8px; }
-  .hamburger::after { bottom: 8px; }
-
-  /* 漢堡變成 X */
-  .menu-toggle.active .hamburger { background: transparent; }
-  .menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
-  .menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
-
-  /* 手機側邊選單 - 延續高透明風格 */
   .main-nav {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 70%; /* 寬度佔比 */
+    right: -100%; /* 預設收起來 */
+    width: 260px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.95); /* 高透明度 */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.95); /* 手機版選單高透明 */
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1050;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 2050;
   }
 
-  .main-nav.active { right: 0; }
+  .main-nav.active {
+    transform: translateX(-100%); /* 滑入 */
+  }
 
   .main-nav a {
     margin: 20px 0;
     font-size: 1.2rem;
+    margin-left: 0;
   }
+
+  /* 遮罩層樣式 */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 2040;
+  }
+  .nav-overlay.active { display: block; }
 }
