@@ -517,7 +517,7 @@ img {
 
   /* 如果是 button，建議全寬 */
   .mobile-only-buttons .button {
-    width: 100%;
+    width: auto;
   }
 
   /* info-card 可以自動寬度 */
