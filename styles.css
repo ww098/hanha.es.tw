@@ -593,112 +593,95 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  height: 70px !important;
+  height: 75px !important;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px !important;
 }
 
 /* --- 防止校徽壓扁 --- */
-.brand { 
-  display: flex !important; 
-  align-items: center !important; 
-  text-decoration: none !important; 
-  color: #333 !important;
-  flex-shrink: 0 !important;
-}
-.brand img { 
-  width: 48px !important; height: 48px !important; 
-  flex-shrink: 0 !important; margin-right: 12px; 
-}
+.brand { display: flex !important; align-items: center !important; text-decoration: none !important; color: #333 !important; flex-shrink: 0 !important; }
+.brand img { width: 50px !important; height: 50px !important; flex-shrink: 0 !important; margin-right: 12px; }
 
-/* --- 漢堡按鈕圖案 (通用) --- */
+/* --- A. 電腦版導覽列 (只在螢幕大於 992px 顯示) --- */
+.desktop-nav {
+  display: flex !important;
+}
+.desktop-nav a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.desktop-nav a.active { color: #0056b3; font-weight: 700; }
+
+/* --- B. 手機版漢堡按鈕 --- */
 .menu-toggle {
+  display: none; /* 預設隱藏 */
   width: 44px; height: 44px;
   background: none !important; border: none !important;
-  cursor: pointer; position: relative; z-index: 10001 !important;
+  cursor: pointer; position: relative; z-index: 3001 !important;
 }
 .hamburger, .hamburger::before, .hamburger::after {
   content: ''; display: block; width: 24px; height: 2px;
-  background: #333 !important; position: absolute; left: 10px; 
-  transition: all 0.3s ease-in-out !important;
+  background: #333 !important; position: absolute; left: 10px; transition: 0.3s;
 }
 .hamburger { top: 21px; }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* 叉叉動畫 */
 .menu-toggle.active .hamburger { background: transparent !important; }
 .menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
 .menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
 
-/* --- A. 電腦版專屬樣式 (螢幕寬度 > 992px) --- */
-@media (min-width: 993px) {
-  .menu-toggle { display: none !important; } /* 電腦版隱藏漢堡 */
-  .nav-overlay { display: none !important; }
-
-  .main-nav {
-    display: flex !important; /* 強制橫排 */
-    position: static !important;
-    transform: none !important;
-    visibility: visible !important;
-    background: transparent !important;
-    width: auto !important;
-    height: auto !important;
-  }
-  .main-nav a {
-    margin-left: 25px;
-    text-decoration: none;
-    color: #444;
-    font-weight: 500;
-    font-size: 1rem;
-  }
-  .main-nav a.active { color: #0056b3; font-weight: 700; }
+/* --- C. 手機版側邊面板 (只在螢幕小於 992px 顯示) --- */
+.mobile-nav-panel {
+  position: fixed !important;
+  top: 0; right: 0;
+  width: 280px !important; height: 100vh !important;
+  background: #ffffff !important;
+  z-index: 3000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding-top: 100px !important;
+  
+  /* 初始狀態：隱藏 */
+  visibility: hidden !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.3s ease, visibility 0.3s !important;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
-/* --- B. 手機版專屬樣式 (螢幕寬度 <= 992px) --- */
+.mobile-nav-panel.active {
+  visibility: visible !important;
+  transform: translateX(0) !important;
+}
+
+.mobile-nav-panel a {
+  padding: 20px 0 !important;
+  text-align: center;
+  text-decoration: none !important;
+  color: #333 !important;
+  font-size: 1.2rem !important;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.nav-overlay {
+  display: none;
+  position: fixed !important;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5) !important;
+  z-index: 2999 !important;
+}
+.nav-overlay.active { display: block !important; }
+
+/* --- D. 響應式切換開關 --- */
 @media (max-width: 992px) {
+  .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
+}
 
-  .main-nav {
-    position: fixed !important;
-    top: 0; right: 0;
-    width: 280px !important; height: 100vh !important;
-    background: #ffffff !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    padding-top: 100px !important;
-    z-index: 10000 !important;
-    
-    /* 初始隱藏狀態 */
-    visibility: hidden !important;
-    transform: translateX(100%) !important;
-    transition: transform 0.3s ease, visibility 0.3s !important;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-  }
-
-  /* 開啟選單後的狀態 */
-  .main-nav.active {
-    visibility: visible !important;
-    transform: translateX(0) !important;
-  }
-
-  .main-nav a {
-    width: 100%; text-align: center;
-    padding: 20px 0 !important;
-    margin: 0 !important;
-    font-size: 1.2rem !important;
-    text-decoration: none;
-    color: #333;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-  }
-
-  .nav-overlay {
-    display: none;
-    position: fixed !important;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5) !important;
-    z-index: 9999 !important;
-  }
-  .nav-overlay.active { display: block !important; }
+@media (min-width: 993px) {
+  .mobile-nav-panel, .nav-overlay { display: none !important; }
 }
