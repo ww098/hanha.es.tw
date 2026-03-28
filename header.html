@@ -27,16 +27,16 @@
 </header>
 
 <style>
-/* 基本字型與內容間距 */
+/* 保留原本 iOS 26 風格字型與間距 */
 body {
   margin: 0;
   font-family: 'Noto Sans TC', sans-serif;
   line-height: 1.6;
   color: #333;
-  padding-top: 80px; /* header 高度，避免內容被擋住 */
+  padding-top: 80px; /* header 高度 */
 }
 
-/* Header 固定 */
+/* Header 固定在上方 */
 .site-header {
   position: fixed;
   top: 0;
@@ -46,12 +46,12 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* 導覽容器 */
+/* 導覽容器保持原本風格 */
 .nav-shell {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px; /* 保留原本 iOS 風格間距 */
+  padding: 20px 30px;
 }
 
 /* 校徽與品牌 */
@@ -87,7 +87,7 @@ body {
   transition: 0.4s;
 }
 
-/* 手機版 */
+/* 手機版響應式 */
 @media (max-width: 768px) {
   .main-nav {
     position: absolute;
@@ -112,11 +112,14 @@ body {
 </style>
 
 <script>
-// 漢堡控制選單
-const hamburger = document.getElementById('hamburger');
-const mainNav = document.getElementById('mainNav');
-hamburger.addEventListener('click', () => {
-  mainNav.classList.toggle('show');
-  hamburger.classList.toggle('active');
+// 漢堡選單控制
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('mainNav');
+
+  hamburger.addEventListener('click', () => {
+    mainNav.classList.toggle('show');
+    hamburger.classList.toggle('active');
+  });
 });
 </script>
