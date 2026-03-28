@@ -561,38 +561,105 @@ img {
   /* 確保原版卡片在手機版變單欄 */
   .link-grid { grid-template-columns: 1fr !important; }
 }
-/* 桌機版 */
+.site-header {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-shell {
+  max-width: 1200px;  /* 桌機版導覽寬度限制 */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 左右兩邊分開 */
+  padding: 10px 20px; /* 上下/左右間距 */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 校徽與文字間距 */
+  text-decoration: none;
+  color: #333;
+}
+
+.brand-text span {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #666;
+}
+
+.brand-text strong {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* 桌機版主導覽 */
 .main-nav {
   display: flex;
-  gap: 20px;
+  gap: 25px;  /* 導覽間距 */
 }
+
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.main-nav a.active {
+  color: #007aff; /* 高亮顏色 */
+}
+
+/* 漢堡按鈕桌機隱藏 */
 .menu-toggle {
-  display: none; /* 桌機隱藏漢堡 */
+  display: none;
 }
 
 /* 手機版 */
 @media (max-width: 768px) {
   .main-nav {
-    display: none; /* 桌機導航隱藏 */
+    display: none;
   }
+
   .menu-toggle {
-    display: block; /* 漢堡按鈕顯示 */
+    display: block;
   }
+
   .mobile-nav-panel {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    z-index: 999;
   }
+
   .mobile-nav-panel.is-active {
-    transform: translateX(0);
+    left: 0;
   }
+
+  .mobile-nav-panel a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+  }
+
   .nav-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.4);
+    z-index: 998;
   }
+
   .nav-overlay.is-active {
     display: block;
   }
 }
-
