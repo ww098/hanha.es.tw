@@ -561,4 +561,38 @@ img {
   /* 確保原版卡片在手機版變單欄 */
   .link-grid { grid-template-columns: 1fr !important; }
 }
+/* 桌機版 */
+.main-nav {
+  display: flex;
+  gap: 20px;
+}
+.menu-toggle {
+  display: none; /* 桌機隱藏漢堡 */
+}
+
+/* 手機版 */
+@media (max-width: 768px) {
+  .main-nav {
+    display: none; /* 桌機導航隱藏 */
+  }
+  .menu-toggle {
+    display: block; /* 漢堡按鈕顯示 */
+  }
+  .mobile-nav-panel {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .mobile-nav-panel.is-active {
+    transform: translateX(0);
+  }
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+  }
+  .nav-overlay.is-active {
+    display: block;
+  }
+}
 
