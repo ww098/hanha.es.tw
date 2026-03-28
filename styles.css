@@ -574,73 +574,7 @@ img {
     width: 100%;
   }
 }
-/* --- 基礎字體與重置 (確保風格統一) --- */
-body {
-  margin: 0;
-  font-family: 'Noto Sans TC', sans-serif;
-}
-
-/* --- 導覽列主體：高質感透明磨砂風格 --- */
-.site-header {
-  background-color: rgba(255, 255, 255, 0.8); /* 80% 透明白 */
-  -webkit-backdrop-filter: blur(15px);        /* iPhone 磨砂效果 */
-  backdrop-filter: blur(15px);                /* 安卓/電腦 磨砂效果 */
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 2000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  transition: background 0.3s;
-}
-
-.nav-shell {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 70px; /* 固定高度防止跳動 */
-}
-
-/* --- 左上角 Logo：解決壓扁問題 --- */
-.brand {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #333;
-  flex-shrink: 0; /* 關鍵：絕對不允許縮小 */
-  min-width: fit-content;
-}
-
-.brand img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  margin-right: 12px;
-  flex-shrink: 0; /* 再次確保圖片不變形 */
-}
-
-.brand-kicker {
-  display: block;
-  font-size: 0.65rem;
-  letter-spacing: 1px;
-  opacity: 0.7;
-  font-weight: 700;
-}
-
-.brand strong {
-  font-size: 1.2rem;
-  font-family: 'Noto Serif TC', serif;
-  display: block;
-  line-height: 1.2;
-}
-
-/* --- 基礎重置 --- */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
-
-/* --- 導覽列主體：高質感透明磨砂 --- */
+/* --- 基礎設定 --- */
 .site-header {
   background: rgba(255, 255, 255, 0.85) !important;
   -webkit-backdrop-filter: blur(15px) !important;
@@ -648,7 +582,7 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   position: sticky;
   top: 0;
   width: 100% !important;
-  z-index: 9999 !important; /* 確保在最上層 */
+  z-index: 1000 !important;
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
@@ -657,124 +591,83 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   justify-content: space-between !important;
   align-items: center !important;
   height: 70px !important;
+  padding: 0 20px !important;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px !important;
 }
 
-/* --- 防止校徽壓扁 --- */
-.brand {
-  display: flex !important;
-  align-items: center !important;
-  text-decoration: none !important;
-  color: #333 !important;
-  flex-shrink: 0 !important;
-  min-width: 200px;
-}
+/* 防止校徽壓扁 */
+.brand { display: flex !important; align-items: center !important; flex-shrink: 0 !important; text-decoration: none !important; color: #333 !important; }
+.brand img { width: 48px !important; height: 48px !important; flex-shrink: 0 !important; margin-right: 12px; }
 
-.brand img {
-  width: 48px !important;
-  height: 48px !important;
-  flex-shrink: 0 !important;
-  object-fit: contain !important;
-  margin-right: 12px;
-}
-
-.brand strong { font-size: 1.2rem; display: block; }
-.brand-kicker { font-size: 0.65rem; opacity: 0.7; display: block; }
-
-/* --- 漢堡按鈕樣式 --- */
+/* 漢堡按鈕 */
 .menu-toggle {
-  display: none; /* 電腦版隱藏 */
-  width: 44px;
-  height: 44px;
-  background: none !important;
-  border: none !important;
-  cursor: pointer;
-  position: relative;
-  z-index: 10001 !important;
+  display: block; /* 手機版預設顯示 */
+  width: 44px; height: 44px;
+  background: none !important; border: none !important;
+  position: relative; z-index: 9999 !important;
 }
 
 .hamburger, .hamburger::before, .hamburger::after {
-  content: '';
-  display: block;
-  width: 26px;
-  height: 2px;
-  background: #333 !important;
-  position: absolute;
-  left: 9px;
-  transition: all 0.3s ease-in-out !important;
+  content: ''; display: block; width: 24px; height: 2px;
+  background: #333 !important; position: absolute; left: 10px; transition: 0.3s;
 }
 .hamburger { top: 21px; }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* 變換 X 狀態 */
 .menu-toggle.active .hamburger { background: transparent !important; }
 .menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
 .menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
 
-/* --- 導覽選項容器 (重點修正) --- */
-.main-nav {
+/* --- 【核心修正】手機版選單面板 --- */
+.mobile-nav-panel {
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  width: 280px !important;
+  height: 100vh !important;
+  background: #ffffff !important;
+  z-index: 9998 !important;
+  
+  /* 強制顯示內容的關鍵 */
+  display: block !important;
+  visibility: hidden; 
+  transform: translateX(100%);
+  transition: transform 0.3s ease, visibility 0.3s;
+}
+
+.mobile-nav-panel.active {
+  visibility: visible !important;
+  transform: translateX(0) !important;
+}
+
+.mobile-nav-content {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  padding-top: 80px;
 }
 
-.main-nav a {
-  text-decoration: none;
-  color: #444;
-  font-weight: 500;
-  margin-left: 25px;
-  transition: 0.3s;
+.mobile-nav-content a {
+  padding: 20px 40px !important;
+  text-decoration: none !important;
+  color: #333 !important;
+  font-size: 1.2rem !important;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: block !important;
 }
 
-.main-nav a.active { color: #0056b3; font-weight: 700; }
+/* 遮罩 */
+.nav-overlay {
+  display: none;
+  position: fixed !important;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5) !important;
+  z-index: 9997 !important;
+}
+.nav-overlay.active { display: block !important; }
 
-/* --- 手機版響應式 (iPhone & Android 適用) --- */
-@media (max-width: 992px) {
-  .menu-toggle { display: block !important; }
-
-  .main-nav {
-    /* 強制設定為側邊欄位 */
-    position: fixed !important;
-    top: 0 !important;
-    right: 0 !important;
-    width: 280px !important;
-    height: 100vh !important;
-    background: #ffffff !important; /* 手機版選單底色 */
-    
-    /* 初始狀態：完全推到螢幕外 */
-    transform: translateX(100%) !important;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    padding-top: 100px !important;
-    z-index: 10000 !important;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-  }
-
-  /* 啟動狀態：滑入螢幕 */
-  .main-nav.active {
-    transform: translateX(0) !important;
-  }
-
-  .main-nav a {
-    width: 100%;
-    text-align: center;
-    padding: 20px 0 !important;
-    margin: 0 !important;
-    font-size: 1.2rem !important;
-    border-bottom: 1px solid rgba(0,0,0,0.03);
-  }
-
-  /* 遮罩層 */
-  .nav-overlay {
-    display: none;
-    position: fixed !important;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.4) !important;
-    z-index: 9998 !important;
-  }
-  .nav-overlay.active { display: block !important; }
+/* 電腦版隱藏手機選單 (寬度 > 992px) */
+@media (min-width: 993px) {
+  .menu-toggle, .mobile-nav-panel, .nav-overlay { display: none !important; }
 }
