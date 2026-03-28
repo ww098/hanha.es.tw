@@ -2,7 +2,7 @@
   <a class="brand" href="./index.html">
     <img src="./home-preview.png" alt="校徽">
     <div class="brand-text">
-      <span class="brand-en">Hanha Elementary School</span>
+      <span class="brand-en">HANHA ELEMENTARY SCHOOL</span>
       <strong>寒合國小</strong>
     </div>
   </a>
@@ -36,20 +36,27 @@
     const nav = document.getElementById('mobileNav');
     const mask = document.getElementById('navOverlay');
 
-    function toggle() {
+    function toggleMenu() {
+      // 確保 class 完全匹配 CSS
       btn.classList.toggle('is-active');
       nav.classList.toggle('is-active');
       mask.classList.toggle('is-active');
-      document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
+      
+      // 禁止背景捲動
+      if(nav.classList.contains('is-active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     }
 
-    if(btn) btn.onclick = toggle;
-    if(mask) mask.onclick = toggle;
+    if(btn) btn.onclick = toggleMenu;
+    if(mask) mask.onclick = toggleMenu;
 
-    // 自動偵測當前頁面 Active
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a').forEach(a => {
-      if(a.getAttribute('href').includes(currentPath)) a.classList.add('active');
+    // 標記 Active
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('nav a').forEach(a => {
+      if(a.getAttribute('href').includes(page)) a.classList.add('active');
     });
   })();
 </script>
