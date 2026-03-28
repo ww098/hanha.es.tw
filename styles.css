@@ -1,185 +1,101 @@
-/* --- 1. 核心變數 (還原你的原版配色) --- */
-:root {
-  --bg: #f4f7fb;
-  --text: #17324a;
-  --muted: #537289;
-  --brand-night: #16384b;
-  --line: #d9e6f0;
-}
-
-/* --- 2. 基礎設定 --- */
+/* --- 1. 基礎重置 (確保不被其他樣式干擾) --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Noto Sans TC", sans-serif; background: #f4f7fb; color: #17324a; overflow-x: hidden; }
 
-body {
-  font-family: "Noto Sans TC", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-}
-
-/* --- 3. 導覽列風格 (還原原版高度與透明感) --- */
+/* --- 2. 導覽列主體 (原版高度與模糊感) --- */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-  height: 76px;
-  background: rgba(244, 247, 251, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: center;
+  position: sticky; top: 0; z-index: 9999;
+  height: 76px; display: flex; align-items: center;
+  background: rgba(244, 247, 251, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid #d9e6f0;
 }
 
 .nav-shell {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  max-width: 1120px;
-  margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  width: 90%; max-width: 1120px; margin: 0 auto;
 }
 
-/* --- 4. 校名風格 (英文細小透明) --- */
-.brand {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-}
-
-.brand img {
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 10px;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-}
+/* --- 3. 校名與英文小字 (精確還原透明度) --- */
+.brand { display: flex; align-items: center; text-decoration: none; color: #17324a; }
+.brand img { width: 48px; height: 48px; margin-right: 12px; border-radius: 10px; background: #fff; }
+.brand-text { display: flex; flex-direction: column; }
 
 .brand-en {
-  font-size: 10px;    /* 縮小字體 */
-  opacity: 0.5;      /* 增加透明度 */
+  font-size: 10px !important;
+  color: #537289 !important;
+  opacity: 0.5 !important; /* 你的透明度要求 */
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-family: sans-serif;
+  line-height: 1;
 }
+.brand strong { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
 
-.brand strong {
-  font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
+/* --- 4. 電腦版連結風格 --- */
+.desktop-nav { display: flex; gap: 28px; }
+.desktop-nav a { text-decoration: none; color: #537289; font-size: 0.95rem; font-weight: 500; transition: 0.2s; }
+.desktop-nav a.active { color: #16384b !important; font-weight: 800 !important; }
 
-/* --- 5. 電腦版導覽列 --- */
-.desktop-nav {
-  display: flex;
-  gap: 28px;
-}
-
-.desktop-nav a {
-  text-decoration: none;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: 0.2s;
-}
-
-.desktop-nav a.active {
-  color: var(--brand-night);
-  font-weight: 800;
-}
-
-/* --- 6. 漢堡按鈕與叉叉絕對修正 --- */
+/* --- 5. 漢堡按鈕 (解決叉叉消失的最終手段) --- */
 .menu-toggle {
-  display: none;
-  width: 44px;
-  height: 44px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  z-index: 10001;
+  display: none; width: 44px; height: 44px;
+  background: none !important; border: none !important;
+  cursor: pointer; position: relative; z-index: 10001;
 }
 
-/* 漢堡線條 */
+/* 漢堡三條線 */
 .hamburger, .hamburger::before, .hamburger::after {
-  content: '';
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--text);
-  position: absolute;
-  left: 11px;
-  transition: all 0.3s ease-in-out;
+  content: '' !important; display: block !important;
+  width: 22px !important; height: 2px !important;
+  background: #17324a !important;
+  position: absolute !important; left: 11px !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
-.hamburger { top: 21px; }
-.hamburger::before { top: -8px; }
-.hamburger::after { top: 8px; }
+.hamburger { top: 21px !important; }
+.hamburger::before { top: -8px !important; }
+.hamburger::after { top: 8px !important; }
 
-/* 叉叉動畫：這一段是解決消失的關鍵 */
+/* 【關鍵】點擊後的叉叉動畫修正 */
 .menu-toggle.is-active .hamburger {
-  background: transparent !important;
+  background: transparent !important; /* 中間線變透明 */
 }
 
 .menu-toggle.is-active .hamburger::before {
   top: 0 !important;
-  transform: rotate(45deg) !important;
-  -webkit-transform: rotate(45deg) !important;
+  transform: translateZ(0) rotate(45deg) !important;
+  -webkit-transform: translateZ(0) rotate(45deg) !important;
 }
 
 .menu-toggle.is-active .hamburger::after {
   top: 0 !important;
-  transform: rotate(-45deg) !important;
-  -webkit-transform: rotate(-45deg) !important;
+  transform: translateZ(0) rotate(-45deg) !important;
+  -webkit-transform: translateZ(0) rotate(-45deg) !important;
 }
 
-/* --- 7. 手機版面板 --- */
+/* --- 6. 手機版面板與遮罩 --- */
 .mobile-nav-panel {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 280px;
-  height: 100vh;
-  background: #ffffff;
-  z-index: 10000;
-  padding-top: 80px;
-  transition: right 0.3s ease;
+  position: fixed; top: 0; right: -100%;
+  width: 280px; height: 100vh;
+  background: #ffffff; z-index: 10000;
+  padding-top: 80px; transition: right 0.4s ease;
   box-shadow: -10px 0 20px rgba(0,0,0,0.05);
 }
-
-.mobile-nav-panel.is-active {
-  right: 0;
-}
-
+.mobile-nav-panel.is-active { right: 0 !important; }
 .mobile-nav-panel a {
-  display: block;
-  padding: 20px 40px;
-  text-decoration: none;
-  color: var(--text);
+  display: block; padding: 20px 40px;
+  text-decoration: none; color: #17324a;
   border-bottom: 1px solid #f0f0f0;
 }
 
 .nav-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.3);
-  z-index: 9998;
+  display: none; position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 9998;
 }
+.nav-overlay.is-active { display: block !important; }
 
-.nav-overlay.is-active {
-  display: block;
-}
-
-/* --- 8. 響應式切換 --- */
+/* --- 7. 響應式切換 --- */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
