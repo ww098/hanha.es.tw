@@ -8,47 +8,42 @@
       </div>
     </a>
 
-    <nav class="desktop-nav">
+    <button class="menu-toggle" id="menuBtn">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
       <a href="./index.html">首頁</a>
       <a href="./new-students.html">新生專區</a>
       <a href="./transfer.html">轉學專區</a>
       <a href="./registration.html">報名專區</a>
-      <a class="active" href="./about.html">關於我們</a>
+      <a href="./about.html" class="nav-about">關於我們</a>
     </nav>
-
-    <button class="menu-toggle" id="menuBtn" aria-label="切換選單">
-      <span class="hamburger"></span>
-    </button>
   </div>
+  <div class="nav-overlay" id="navOverlay"></div>
 </header>
 
-<nav class="mobile-nav-panel" id="mainNav">
-  <div class="mobile-nav-content">
-    <a href="./index.html">首頁</a>
-    <a href="./new-students.html">新生專區</a>
-    <a href="./transfer.html">轉學專區</a>
-    <a href="./registration.html">報名專區</a>
-    <a class="active" href="./about.html">關於我們</a>
-  </div>
-</nav>
-
-<div class="nav-overlay" id="navOverlay"></div>
-
 <script>
-  // 手機選單開關邏輯
-  const btn = document.getElementById('menuBtn');
-  const nav = document.getElementById('mainNav');
-  const overlay = document.getElementById('navOverlay');
+  (function() {
+    const btn = document.getElementById('menuBtn');
+    const nav = document.getElementById('mainNav');
+    const overlay = document.getElementById('navOverlay');
 
-  function toggleMenu(e) {
-    if(e) e.preventDefault();
-    btn.classList.toggle('active');
-    nav.classList.toggle('active');
-    overlay.classList.toggle('active');
-    // 開啟選單時禁止後方頁面捲動
-    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-  }
+    function toggle() {
+      btn.classList.toggle('active');
+      nav.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
 
-  btn.onclick = toggleMenu;
-  overlay.onclick = toggleMenu;
+    btn.onclick = toggle;
+    overlay.onclick = toggle;
+
+    // 自動偵測當前頁面標註 active (解決 about.html 不同步問題)
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('about.html')) {
+      document.querySelectorAll('.main-nav a').forEach(a => {
+        if(a.href.includes('about.html')) a.classList.add('active');
+      });
+    }
+  })();
 </script>
