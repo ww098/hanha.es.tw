@@ -11,28 +11,33 @@
     <button class="menu-toggle" id="menuBtn">
       <span class="hamburger"></span>
     </button>
-
-    <nav class="main-nav" id="mainNav">
-      <a href="./index.html">首頁</a>
-      <a href="./new-students.html">新生專區</a>
-      <a href="./transfer.html">轉學專區</a>
-      <a href="./registration.html">報名專區</a>
-      <a class="active" href="./about.html">關於我們</a>
-    </nav>
   </div>
-  <div class="nav-overlay" id="navOverlay"></div>
 </header>
 
+<nav class="mobile-nav-panel" id="mainNav">
+  <div class="mobile-nav-content">
+    <a href="./index.html">首頁</a>
+    <a href="./new-students.html">新生專區</a>
+    <a href="./transfer.html">轉學專區</a>
+    <a href="./registration.html">報名專區</a>
+    <a class="active" href="./about.html">關於我們</a>
+  </div>
+</nav>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
 <script>
-  // 針對 iPhone 最佳化的點擊邏輯
   const btn = document.getElementById('menuBtn');
   const nav = document.getElementById('mainNav');
   const overlay = document.getElementById('navOverlay');
 
-  function toggleMenu() {
+  function toggleMenu(e) {
+    if(e) e.preventDefault();
     btn.classList.toggle('active');
     nav.classList.toggle('active');
     overlay.classList.toggle('active');
+    // 防止手機版開啟選單時背景還能滾動
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
   }
 
   btn.onclick = toggleMenu;
