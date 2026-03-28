@@ -3,7 +3,7 @@
     <a class="brand" href="./index.html">
       <img src="./home-preview.png" alt="寒合國小校徽" />
       <div class="brand-text">
-        <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
+        <span class="brand-kicker" style="display:block; font-size:0.65rem; opacity:0.7;">HANHA ELEMENTARY SCHOOL</span>
         <strong>寒合國小</strong>
       </div>
     </a>
@@ -48,11 +48,16 @@
     if(btn) btn.onclick = toggleMenu;
     if(overlay) overlay.onclick = toggleMenu;
 
-    // 自動同步 active 狀態 (電腦與手機同時套用)
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a').forEach(link => {
-      if (link.getAttribute('href').includes(currentPath)) {
+    // --- 強化版 Active 狀態偵測 ---
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+    const allLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a');
+    
+    allLinks.forEach(link => {
+      const linkFile = link.getAttribute('href').replace('./', '');
+      if (currentFile === linkFile) {
         link.classList.add('active');
+      } else {
+        link.classList.remove('active');
       }
     });
   })();
