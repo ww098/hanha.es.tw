@@ -22,3 +22,28 @@
   </div>
   <div class="nav-overlay"></div>
 </header>
+
+<script>
+  // 這裡寫在 header.html 內部，確保 fetch 完後立刻執行
+  (function() {
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.main-nav');
+    const overlay = document.querySelector('.nav-overlay');
+
+    if (toggle) {
+      toggle.onclick = function() {
+        toggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+      };
+    }
+    
+    if (overlay) {
+      overlay.onclick = function() {
+        toggle.classList.remove('active');
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+      };
+    }
+  })();
+</script>
