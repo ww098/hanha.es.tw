@@ -3,7 +3,7 @@
     <a class="brand" href="./index.html">
       <img src="./home-preview.png" alt="寒合國小校徽" />
       <div class="brand-text">
-        <span class="brand-kicker" style="display:block; font-size:0.65rem; opacity:0.7;">HANHA ELEMENTARY SCHOOL</span>
+        <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
         <strong>寒合國小</strong>
       </div>
     </a>
@@ -38,23 +38,28 @@
     const mobileNav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
 
-    function toggleMenu() {
+    function toggleMenu(e) {
+      if(e) e.stopPropagation();
       btn.classList.toggle('active');
       mobileNav.classList.toggle('active');
       overlay.classList.toggle('active');
-      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+      
+      const isActive = mobileNav.classList.contains('active');
+      document.body.style.overflow = isActive ? 'hidden' : '';
+      // 針對 Safari 修正：強制重繪
+      if(isActive) mobileNav.style.display = 'block';
     }
 
     if(btn) btn.onclick = toggleMenu;
     if(overlay) overlay.onclick = toggleMenu;
 
-    // --- 強化版 Active 狀態偵測 ---
-    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-    const allLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a');
+    // --- 精確偵測 Active 狀態 ---
+    const path = window.location.pathname;
+    const page = path.split("/").pop() || "index.html";
     
-    allLinks.forEach(link => {
-      const linkFile = link.getAttribute('href').replace('./', '');
-      if (currentFile === linkFile) {
+    document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a').forEach(link => {
+      const href = link.getAttribute('href').replace('./', '');
+      if (page === href) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
