@@ -574,11 +574,10 @@ img {
     width: 100%;
   }
 }
-/* --- 基礎重置 --- */
+/* --- 1. 基礎重置與透明導覽列 --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 
-/* --- 導覽列主體 --- */
 .site-header {
   background: rgba(255, 255, 255, 0.85) !important;
   -webkit-backdrop-filter: blur(15px) !important;
@@ -586,7 +585,7 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   position: sticky;
   top: 0;
   width: 100% !important;
-  z-index: 1000 !important;
+  z-index: 2000 !important;
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
@@ -600,7 +599,7 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   padding: 0 20px !important;
 }
 
-/* --- 防止校徽壓扁 --- */
+/* --- 2. 防止校徽壓扁 --- */
 .brand { 
   display: flex !important; 
   align-items: center !important; 
@@ -613,11 +612,43 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   flex-shrink: 0 !important; margin-right: 12px; 
 }
 
-/* --- 電腦版導覽 (預設顯示) --- */
+/* --- 3. 漢堡按鈕 (重要：確保動畫運作) --- */
+.menu-toggle {
+  display: none; /* 電腦隱藏 */
+  width: 44px; height: 44px;
+  background: none !important; border: none !important;
+  cursor: pointer; position: relative; z-index: 10001 !important;
+}
+
+.hamburger, .hamburger::before, .hamburger::after {
+  content: ''; display: block; width: 24px; height: 2px;
+  background: #333 !important; position: absolute; left: 10px; 
+  transition: all 0.3s ease-in-out !important; /* 動畫關鍵 */
+}
+.hamburger { top: 21px; }
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* 點擊後的叉叉動畫樣式 */
+.menu-toggle.active .hamburger { background: transparent !important; }
+.menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
+.menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
+
+/* --- 4. 導覽列邏輯 (電腦 vs 手機) --- */
+
+/* 預設為電腦版：橫排顯示 */
 .main-nav {
   display: flex !important;
   align-items: center !important;
+  position: static !important;
+  transform: none !important;
+  background: transparent !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  visibility: visible !important;
 }
+
 .main-nav a {
   margin-left: 25px;
   text-decoration: none;
@@ -627,26 +658,10 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 }
 .main-nav a.active { color: #0056b3; font-weight: 700; }
 
-/* --- 漢堡按鈕 (預設隱藏) --- */
-.menu-toggle {
-  display: none;
-  width: 44px; height: 44px;
-  background: none !important; border: none !important;
-  cursor: pointer; position: relative; z-index: 10001 !important;
-}
-.hamburger, .hamburger::before, .hamburger::after {
-  content: ''; display: block; width: 24px; height: 2px;
-  background: #333 !important; position: absolute; left: 10px; transition: 0.3s;
-}
-.hamburger { top: 21px; }
-.hamburger::before { top: -8px; }
-.hamburger::after { top: 8px; }
+/* 遮罩預設隱藏 */
+.nav-overlay { display: none; }
 
-.menu-toggle.active .hamburger { background: transparent !important; }
-.menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
-.menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
-
-/* --- 手機版響應式 (992px 以下) --- */
+/* --- 5. 手機版切換 (992px 以下) --- */
 @media (max-width: 992px) {
   .menu-toggle { display: block !important; }
 
@@ -657,15 +672,17 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
     background: #ffffff !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
-    padding-top: 80px !important;
+    padding-top: 100px !important;
     z-index: 10000 !important;
-    /* Safari 必備：確保內容渲染 */
-    visibility: hidden;
-    transform: translateX(100%);
-    transition: transform 0.3s ease, visibility 0.3s;
+    
+    /* 初始狀態：藏在右邊 */
+    visibility: hidden !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.3s ease, visibility 0.3s !important;
     box-shadow: -10px 0 30px rgba(0,0,0,0.1);
   }
 
+  /* 啟動狀態 */
   .main-nav.active {
     visibility: visible !important;
     transform: translateX(0) !important;
@@ -685,6 +702,3 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
     z-index: 9999 !important;
   }
 }
-
-/* 遮罩預設隱藏 */
-.nav-overlay { display: none; }
