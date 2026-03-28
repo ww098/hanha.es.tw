@@ -617,95 +617,75 @@ img {
   color: #007aff;
 }
 
-/* 漢堡按鈕桌機隱藏 */
+/* 漢堡按鈕初始狀態（手機才顯示） */
 .menu-toggle {
-  display: none;
+  display: none; /* 桌機隱藏 */
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   cursor: pointer;
-}
-
-.menu-toggle .hamburger,
-.menu-toggle .hamburger::before,
-.menu-toggle .hamburger::after {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  border-radius: 2px;
   position: relative;
-  transition: all 0.3s ease;
+  z-index: 10001;
 }
 
-.menu-toggle .hamburger::before {
+.hamburger, .hamburger::before, .hamburger::after {
   content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #17324a;
   position: absolute;
-  top: -8px;
+  left: 11px;
+  transition: all 0.3s ease-in-out;
 }
 
-.menu-toggle .hamburger::after {
-  content: '';
-  position: absolute;
-  top: 8px;
-}
+.hamburger { top: 21px; }
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
 
-/* 漢堡 X 狀態 */
-.menu-toggle.is-active .hamburger {
-  background-color: transparent;
-}
+/* 漢堡點擊變叉叉 */
+.menu-toggle.is-active .hamburger { background: transparent; }
+.menu-toggle.is-active .hamburger::before { top: 0; transform: rotate(45deg); }
+.menu-toggle.is-active .hamburger::after { top: 0; transform: rotate(-45deg); }
 
-.menu-toggle.is-active .hamburger::before {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.menu-toggle.is-active .hamburger::after {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* 手機版 */
-@media (max-width: 768px) {
-  .main-nav {
-    display: none;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
+/* 手機版滑出選單 */
+@media (max-width: 980px) {
+  .main-nav { display: none; } /* 桌機導覽列隱藏 */
+  .menu-toggle { display: block; }
 
   .mobile-nav-panel {
     position: fixed;
     top: 0;
-    left: -100%;
-    width: 250px;
-    height: 100%;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
     background: #fff;
-    padding-top: 60px;
-    transition: left 0.3s ease;
-    z-index: 999;
+    padding-top: 80px;
+    transition: right 0.4s ease;
+    box-shadow: -10px 0 20px rgba(0,0,0,0.05);
+    z-index: 10000;
     display: flex;
     flex-direction: column;
   }
 
+  .mobile-nav-panel.is-active { right: 0; }
+
   .mobile-nav-panel a {
     display: block;
-    padding: 15px 20px;
+    padding: 20px 40px;
     text-decoration: none;
-    color: #333;
-  }
-
-  .mobile-nav-panel.is-active {
-    left: 0;
+    color: #17324a;
+    border-bottom: 1px solid #f0f0f0;
   }
 
   .nav-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: 998;
+    background: rgba(0,0,0,0.3);
+    z-index: 9998;
   }
 
-  .nav-overlay.is-active {
-    display: block;
-  }
+  .nav-overlay.is-active { display: block; }
 }
