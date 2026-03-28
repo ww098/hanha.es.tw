@@ -1,69 +1,58 @@
-/* --- 1. 核心變數與基礎重置 --- */
+/* --- 1. 核心變量 (保留你的配色) --- */
 :root {
   --bg: #f4f7fb;
-  --panel: #ffffff;
-  --panel-soft: #eef5fb;
-  --line: #d9e6f0;
   --text: #17324a;
   --muted: #537289;
-  --brand: #6eb7d8;
-  --brand-deep: #1a9bb8;
   --brand-night: #16384b;
-  --link: #2d546c;
-  --shadow: 0 22px 60px rgba(22, 56, 75, 0.12);
-  --radius-xl: 28px;
-  --radius-lg: 20px;
-  --radius-md: 14px;
+  --line: #d9e6f0;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  margin: 0;
   font-family: "Noto Sans TC", sans-serif;
-  background: radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
-              linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
+  background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* --- 2. 導覽列風格 (精確還原原版) --- */
+/* --- 2. 導覽列風格：精確還原原版 (高度、間距) --- */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 2000;
+  z-index: 9999;
   height: 76px;
+  background: rgba(244, 247, 251, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: rgba(244, 247, 251, 0.85);
-  border-bottom: 1px solid rgba(217, 230, 240, 0.9);
 }
 
 .nav-shell {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: min(1120px, calc(100% - 2rem));
+  align-items: center;
+  width: 92%;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
-/* --- 3. 校名風格 (還原小字、透明度) --- */
+/* --- 3. 校名風格：英文小字 + 透明度 --- */
 .brand {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.9rem;
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 
 .brand img {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: white;
-  box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14);
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+  border-radius: 12px;
+  background: #fff;
 }
 
 .brand-text {
@@ -72,30 +61,29 @@ body {
 }
 
 .brand-en {
-  display: block;
-  font-size: 0.7rem; /* 小字體 */
+  font-size: 10px;
   color: var(--muted);
-  opacity: 0.6;      /* 帶有透明度 */
-  letter-spacing: 0.15em;
+  opacity: 0.5; /* 關鍵透明度 */
+  letter-spacing: 1px;
   text-transform: uppercase;
+  margin-bottom: -2px;
 }
 
 .brand strong {
   font-size: 1.15rem;
-  color: var(--text);
-  line-height: 1.2;
+  font-weight: 700;
 }
 
-/* --- 4. 電腦版導覽連結 --- */
+/* --- 4. 電腦版導覽列：間距還原 --- */
 .desktop-nav {
   display: flex;
-  gap: 1.8rem;
+  gap: 28px;
 }
 
 .desktop-nav a {
+  text-decoration: none;
   color: var(--muted);
   font-size: 0.95rem;
-  text-decoration: none;
   font-weight: 500;
   transition: 0.2s;
 }
@@ -105,27 +93,27 @@ body {
   font-weight: 800;
 }
 
-/* --- 5. 漢堡按鈕 (修復叉叉不出來) --- */
+/* --- 5. 漢堡按鈕與叉叉修正 (核心修復) --- */
 .menu-toggle {
   display: none;
   width: 40px; height: 40px;
   background: none; border: none;
-  cursor: pointer; position: relative; z-index: 3001;
+  cursor: pointer; position: relative; z-index: 10001;
 }
 
 .hamburger, .hamburger::before, .hamburger::after {
   content: ''; display: block;
-  width: 24px; height: 2px;
+  width: 22px; height: 2px;
   background: var(--text);
-  position: absolute; left: 8px;
-  transition: all 0.3s ease;
+  position: absolute; left: 9px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hamburger { top: 19px; }
-.hamburger::before { top: -8px; }
-.hamburger::after { top: 8px; }
+.hamburger::before { top: -7px; }
+.hamburger::after { top: 7px; }
 
-/* 叉叉動畫強制修正 */
+/* 變換叉叉 (強制座標歸零) */
 .menu-toggle.is-active .hamburger {
   background: transparent !important;
 }
@@ -140,16 +128,16 @@ body {
   -webkit-transform: rotate(-45deg) !important;
 }
 
-/* --- 6. 手機版面板 --- */
+/* --- 6. 手機版面板：防止頁面跑掉 --- */
 .mobile-nav-panel {
   position: fixed;
-  top: 0; right: -280px;
+  top: 0; right: -100%; /* 使用百分比確保完全隱藏 */
   width: 280px; height: 100vh;
-  background: var(--panel);
-  z-index: 3000;
-  padding-top: 100px;
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -10px 0 30px rgba(0,0,0,0.08);
+  background: #ffffff;
+  z-index: 10000;
+  padding-top: 80px;
+  transition: right 0.4s ease;
+  box-shadow: -10px 0 20px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
 }
@@ -159,26 +147,21 @@ body {
 }
 
 .mobile-nav-panel a {
-  padding: 20px 40px;
+  padding: 18px 35px;
   text-decoration: none;
   color: var(--text);
-  font-size: 1.1rem;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 1.05rem;
 }
 
 .nav-overlay {
-  display: none;
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(22, 56, 75, 0.3);
-  z-index: 2999;
+  display: none; position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 9998;
 }
 .nav-overlay.is-active { display: block; }
 
-/* --- 7. 響應式切換 --- */
+/* --- 7. 響應式切換 (關鍵隔離) --- */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
 }
-
-/* ... 以下保留你原本的 Hero、Card 等其他樣式 ... */
