@@ -490,7 +490,7 @@ img {
 }
 
 .mobile-only-buttons .button {
-  width: 100%; /* 滿寬按鈕 */
+  width: 40rem; /* 滿寬按鈕 */
 }
 
 /* 手機版才顯示 */
