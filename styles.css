@@ -602,23 +602,24 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 /* --- 防止校徽壓扁 --- */
 .brand { display: flex !important; align-items: center !important; text-decoration: none !important; color: #333 !important; flex-shrink: 0 !important; }
 .brand img { width: 50px !important; height: 50px !important; flex-shrink: 0 !important; margin-right: 12px; }
+.brand strong { font-size: 1.2rem; white-space: nowrap; }
 
-/* --- A. 電腦版導覽列 (只在螢幕大於 992px 顯示) --- */
-.desktop-nav {
-  display: flex !important;
-}
+/* --- A. 電腦版導覽列 (橫排) --- */
+.desktop-nav { display: flex !important; align-items: center !important; }
 .desktop-nav a {
   margin-left: 25px;
   text-decoration: none;
   color: #444;
   font-weight: 500;
+  font-size: 1rem;
   transition: 0.3s;
+  white-space: nowrap;
 }
-.desktop-nav a.active { color: #0056b3; font-weight: 700; }
+.desktop-nav a.active { color: #0056b3 !important; font-weight: 700 !important; }
 
 /* --- B. 手機版漢堡按鈕 --- */
 .menu-toggle {
-  display: none; /* 預設隱藏 */
+  display: none;
   width: 44px; height: 44px;
   background: none !important; border: none !important;
   cursor: pointer; position: relative; z-index: 3001 !important;
@@ -635,7 +636,7 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 .menu-toggle.active .hamburger::before { transform: rotate(45deg); top: 0; }
 .menu-toggle.active .hamburger::after { transform: rotate(-45deg); top: 0; }
 
-/* --- C. 手機版側邊面板 (只在螢幕小於 992px 顯示) --- */
+/* --- C. 手機版側邊面板 (垂直分行) --- */
 .mobile-nav-panel {
   position: fixed !important;
   top: 0; right: 0;
@@ -643,28 +644,30 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   background: #ffffff !important;
   z-index: 3000 !important;
   display: flex !important;
-  flex-direction: column !important;
+  flex-direction: column !important; /* 確保垂直分行 */
   padding-top: 100px !important;
-  
-  /* 初始狀態：隱藏 */
   visibility: hidden !important;
   transform: translateX(100%) !important;
   transition: transform 0.3s ease, visibility 0.3s !important;
   box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
-.mobile-nav-panel.active {
-  visibility: visible !important;
-  transform: translateX(0) !important;
-}
+.mobile-nav-panel.active { visibility: visible !important; transform: translateX(0) !important; }
 
 .mobile-nav-panel a {
-  padding: 20px 0 !important;
-  text-align: center;
+  display: block !important; /* 關鍵：強制每個連結佔據一行 */
+  width: 100%;
+  padding: 18px 40px !important; /* 增加點擊面積 */
   text-decoration: none !important;
   color: #333 !important;
-  font-size: 1.2rem !important;
+  font-size: 1.15rem !important;
   border-bottom: 1px solid rgba(0,0,0,0.05);
+  text-align: left; /* 改為靠左對齊，較符合手機操作習慣 */
+}
+.mobile-nav-panel a.active { 
+  background-color: rgba(0, 86, 179, 0.05); 
+  color: #0056b3 !important; 
+  font-weight: 700 !important; 
 }
 
 .nav-overlay {
@@ -676,12 +679,11 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 }
 .nav-overlay.active { display: block !important; }
 
-/* --- D. 響應式切換開關 --- */
+/* --- D. 響應式切換 --- */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
 }
-
 @media (min-width: 993px) {
   .mobile-nav-panel, .nav-overlay { display: none !important; }
 }
