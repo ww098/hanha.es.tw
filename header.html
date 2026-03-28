@@ -35,21 +35,14 @@
     const nav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
 
-    if (btn) {
-      btn.onclick = function() {
-        btn.classList.toggle('is-active');
-        nav.classList.toggle('is-active');
-        overlay.classList.toggle('is-active');
-        document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
-      };
+    function toggle() {
+      btn.classList.toggle('is-active');
+      nav.classList.toggle('is-active');
+      overlay.classList.toggle('is-active');
+      document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
     }
-    if (overlay) {
-      overlay.onclick = function() {
-        btn.classList.remove('is-active');
-        nav.classList.remove('is-active');
-        overlay.classList.remove('is-active');
-        document.body.style.overflow = '';
-      };
-    }
+
+    if(btn) btn.onclick = toggle;
+    if(overlay) overlay.onclick = toggle;
   })();
 </script>
