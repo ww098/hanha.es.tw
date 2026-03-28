@@ -1,5 +1,6 @@
-<div class="site-header">
-  <div class="container"> <div class="nav-shell">
+<header class="site-header">
+  <div class="container"> 
+    <div class="nav-shell">
       
       <a class="brand" href="./index.html">
         <img src="./home-preview.png" alt="校徽">
@@ -20,9 +21,10 @@
       <button class="menu-toggle" id="menuBtn">
         <span class="hamburger"></span>
       </button>
+      
     </div>
   </div>
-</div>
+</header>
 
 <nav class="mobile-nav-panel" id="mobileNav">
   <a href="./index.html">首頁</a>
@@ -31,27 +33,23 @@
   <a href="./registration.html">報名專區</a>
   <a href="./about.html">關於我們</a>
 </nav>
-
 <div class="nav-overlay" id="navOverlay"></div>
 
 <script>
-  // 這裡用一個立即執行函數，避免與其他頁面的變數衝突
   (function() {
     const btn = document.getElementById('menuBtn');
     const nav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
-
-    if (!btn || !nav || !overlay) return;
+    if(!btn) return;
 
     function toggle() {
       btn.classList.toggle('is-active');
       nav.classList.toggle('is-active');
       overlay.classList.toggle('is-active');
-      // 切換捲動鎖定
       document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
     }
 
     btn.onclick = toggle;
-    overlay.onclick = toggle;
+    if(overlay) overlay.onclick = toggle;
   })();
 </script>
