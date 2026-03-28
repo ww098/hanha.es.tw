@@ -27,36 +27,29 @@
   <a href="./registration.html">報名專區</a>
   <a href="./about.html">關於我們</a>
 </nav>
-
 <div class="nav-overlay" id="navOverlay"></div>
 
 <script>
   (function() {
     const btn = document.getElementById('menuBtn');
     const nav = document.getElementById('mobileNav');
-    const mask = document.getElementById('navOverlay');
+    const overlay = document.getElementById('navOverlay');
 
-    function toggleMenu() {
-      // 確保 class 完全匹配 CSS
-      btn.classList.toggle('is-active');
-      nav.classList.toggle('is-active');
-      mask.classList.toggle('is-active');
-      
-      // 禁止背景捲動
-      if(nav.classList.contains('is-active')) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
+    if (btn) {
+      btn.onclick = function() {
+        btn.classList.toggle('is-active');
+        nav.classList.toggle('is-active');
+        overlay.classList.toggle('is-active');
+        document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
+      };
     }
-
-    if(btn) btn.onclick = toggleMenu;
-    if(mask) mask.onclick = toggleMenu;
-
-    // 標記 Active
-    const page = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('nav a').forEach(a => {
-      if(a.getAttribute('href').includes(page)) a.classList.add('active');
-    });
+    if (overlay) {
+      overlay.onclick = function() {
+        btn.classList.remove('is-active');
+        nav.classList.remove('is-active');
+        overlay.classList.remove('is-active');
+        document.body.style.overflow = '';
+      };
+    }
   })();
 </script>
