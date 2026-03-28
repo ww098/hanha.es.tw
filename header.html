@@ -1,48 +1,24 @@
-<div class="nav-shell">
-  <a class="brand" href="./index.html">
-    <img src="./home-preview.png" alt="校徽">
-    <div class="brand-text">
-      <span class="brand-en">HANHA ELEMENTARY SCHOOL</span>
-      <strong>寒合國小</strong>
-    </div>
-  </a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="brand" href="./index.html">
+      <img src="./home-preview.png" alt="校徽">
+      <div class="brand-text">
+        <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
+        <strong>寒合國小</strong>
+      </div>
+    </a>
+    
+    <nav class="main-nav">
+       <a href="./index.html">首頁</a>
+       </nav>
 
-  <nav class="desktop-nav">
-    <a href="./index.html">首頁</a>
-    <a href="./new-students.html">新生專區</a>
-    <a href="./transfer.html">轉學專區</a>
-    <a href="./registration.html">報名專區</a>
-    <a href="./about.html">關於我們</a>
-  </nav>
-
-  <button class="menu-toggle" id="menuBtn">
-  <span class="hamburger"></span>
-</button>
-</div>
+    <button class="menu-toggle" id="menuBtn">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+</header>
 
 <nav class="mobile-nav-panel" id="mobileNav">
   <a href="./index.html">首頁</a>
-  <a href="./new-students.html">新生專區</a>
-  <a href="./transfer.html">轉學專區</a>
-  <a href="./registration.html">報名專區</a>
-  <a href="./about.html">關於我們</a>
-</nav>
+  </nav>
 <div class="nav-overlay" id="navOverlay"></div>
-
-<script>
-  (function() {
-    const btn = document.getElementById('menuBtn');
-    const nav = document.getElementById('mobileNav');
-    const overlay = document.getElementById('navOverlay');
-
-    function toggle() {
-      btn.classList.toggle('is-active');
-      nav.classList.toggle('is-active');
-      overlay.classList.toggle('is-active');
-      document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
-    }
-
-    if(btn) btn.onclick = toggle;
-    if(overlay) overlay.onclick = toggle;
-  })();
-</script>
