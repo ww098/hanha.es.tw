@@ -13,31 +13,55 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
- <header class="site-header" id="header-placeholder">
-  </header>
+ <header class="site-header">
+  <div class="nav-shell">
+    <a class="brand" href="./index.html">
+      <img src="./home-preview.png" alt="校徽">
+      <div class="brand-text">
+        <div class="brand-en">HANHA ELEMENTARY SCHOOL</div>
+        <strong>寒合國小</strong>
+      </div>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="./index.html">首頁</a>
+      <a href="./new-students.html">新生專區</a>
+      <a href="./transfer.html">轉學專區</a>
+      <a href="./registration.html">報名專區</a>
+      <a href="./about.html" class="active">關於我們</a>
+    </nav>
+
+    <button class="menu-toggle" id="menuBtn">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav-panel" id="mobileNav">
+  <a href="./index.html">首頁</a>
+  <a href="./new-students.html">新生專區</a>
+  <a href="./transfer.html">轉學專區</a>
+  <a href="./registration.html">報名專區</a>
+  <a href="./about.html" class="active">關於我們</a>
+</nav>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <script>
-  fetch('./header.html')
-    .then(res => res.text())
-    .then(data => {
-      const container = document.getElementById('header-placeholder');
-      container.innerHTML = data;
+  // 針對 Safari 優化的點擊邏輯
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  const navOverlay = document.getElementById('navOverlay');
 
-      // 2. 針對 Safari 強化：手動提取並執行 script
-      const scripts = container.querySelectorAll('script');
-      scripts.forEach(oldScript => {
-        const newScript = document.createElement('script');
-        // 複製原本 script 的內容
-        newScript.textContent = oldScript.textContent;
-        // 將新 script 插入 body 尾端強制執行
-        document.body.appendChild(newScript);
-        // 執行完後移除，保持頁面乾淨
-        oldScript.remove();
-      });
-    })
-    .catch(err => console.error("導覽列載入失敗:", err));
+  function handleToggle() {
+    menuBtn.classList.toggle('is-active');
+    mobileNav.classList.toggle('is-active');
+    navOverlay.classList.toggle('is-active');
+    document.body.style.overflow = mobileNav.classList.contains('is-active') ? 'hidden' : '';
+  }
+
+  if (menuBtn) menuBtn.addEventListener('click', handleToggle);
+  if (navOverlay) navOverlay.addEventListener('click', handleToggle);
 </script>
-  
   </body>
 
     <main>
