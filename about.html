@@ -15,18 +15,138 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="container nav-shell">
-        <a class="brand" href="./index.html">
-          <img src="./home-preview.png" alt="寒合國小校徽" />
-          <div>
-            <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
-            <strong>寒合國小</strong>
-          </div>
-        </a>
-        <nav class="main-nav" aria-label="主導覽"><a href="./index.html">首頁</a><a href="./new-students.html">新生專區</a><a href="./transfer.html">轉學專區</a><a href="./registration.html">報名專區</a><a class="active" href="./about.html">關於我們</a></nav>
+  <header class="site-header">
+  <div class="container nav-shell">
+    <a class="brand" href="./index.html">
+      <img src="./home-preview.png" alt="寒合國小校徽" />
+      <div>
+        <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
+        <strong>寒合國小</strong>
       </div>
-    </header>
+    </a>
+
+    <!-- 導覽列 -->
+    <nav class="main-nav" aria-label="主導覽" id="mainNav">
+      <a href="./index.html">首頁</a>
+      <a href="./new-students.html">新生專區</a>
+      <a href="./transfer.html">轉學專區</a>
+      <a href="./registration.html">報名專區</a>
+      <a class="active" href="./about.html">關於我們</a>
+    </nav>
+
+    <!-- 漢堡按鈕 -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</header>
+
+<style>
+/* ================= 基本樣式 ================= */
+body {
+  margin: 0;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nav-shell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.main-nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: #0077cc;
+}
+
+/* 漢堡按鈕 */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* ================= 手機版 ================= */
+@media (max-width: 768px) {
+  .main-nav {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+  }
+
+  .main-nav.show {
+    max-height: 500px; /* 足夠放下所有選單 */
+  }
+
+  .main-nav a {
+    margin: 15px 20px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* 漢堡動畫變 X */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+</style>
+
+<script>
+// 漢堡控制選單 & 變 X
+const hamburger = document.getElementById('hamburger');
+const mainNav = document.getElementById('mainNav');
+
+hamburger.addEventListener('click', () => {
+  mainNav.classList.toggle('show');
+  hamburger.classList.toggle('active');
+});
+</script>
 
     <main>
       <section class="page-hero">
