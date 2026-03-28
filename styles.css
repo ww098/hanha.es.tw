@@ -501,5 +501,8 @@ img {
     gap: 1rem;
   }
 }
+  .mobile-only-buttons {
+    padding: 1.4rem;
+}
 
 
