@@ -1,5 +1,5 @@
 /* ==========================================
-   1. 核心變數 (完全採用你的原版)
+   1. 核心變數 (完全還原原版)
    ========================================== */
 :root {
   --bg: #f4f7fb;
@@ -19,52 +19,98 @@
 }
 
 /* ==========================================
-   2. 基礎還原 (防止跑版)
+   2. 基礎設定 (完全還原原版)
    ========================================== */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: "Noto Sans TC", sans-serif;
-  background: radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
-              linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
+  background:
+    radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
+    linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
   color: var(--text);
-  overflow-x: hidden;
+  overflow-x: hidden; /* 防止手機版左右晃動 */
+}
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 img { display: block; max-width: 100%; }
 
+.container {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
 /* ==========================================
-   3. 導覽列 (對應你現在的 HTML 類別)
+   3. 導覽列 (精確對應你的新 HTML 結構)
    ========================================== */
 .site-header {
-  position: sticky; top: 0; z-index: 9999;
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   background: rgba(244, 247, 251, 0.82);
   border-bottom: 1px solid rgba(217, 230, 240, 0.9);
 }
 .nav-shell {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1.5rem; min-height: 76px;
-  width: min(1120px, calc(100% - 2rem)); margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 76px;
 }
 
-/* 校名風格：對應 .brand-en */
-.brand { display: inline-flex; align-items: center; gap: 0.9rem; color: inherit; text-decoration: none; }
-.brand img { width: 52px; height: 52px; border-radius: 14px; background: white; box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14); }
+/* 校名區塊：對應 .brand-en */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: inherit;
+  text-decoration: none;
+}
+.brand img {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14);
+}
 .brand-text { display: flex; flex-direction: column; }
-.brand-en { display: block; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.18em; opacity: 0.5; }
-.brand strong { font-size: 1.1rem; }
+.brand-en {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  opacity: 0.6; /* 恢復原版透明質感 */
+}
+.brand strong { font-size: 1.1rem; font-weight: 700; }
 
-/* 電腦選單：對應 .desktop-nav */
-.desktop-nav { display: flex; gap: 1rem; }
-.desktop-nav a { color: var(--muted); font-size: 0.95rem; text-decoration: none; transition: 0.2s; font-weight: 500; }
+/* 電腦版選單：對應你 HTML 裡的 .desktop-nav */
+.desktop-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1.2rem;
+}
+.desktop-nav a {
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
 .desktop-nav a:hover { color: var(--brand-night); }
 
 /* ==========================================
-   4. 漢堡變叉叉 (新增功能且修正動畫)
+   4. 漢堡按鈕與叉叉動畫 (新增功能)
    ========================================== */
 .menu-toggle {
-  display: none; width: 44px; height: 44px; background: none; border: none; cursor: pointer; position: relative; z-index: 10001;
+  display: none; /* 平時隱藏 */
+  width: 44px; height: 44px; background: none; border: none; cursor: pointer; position: relative; z-index: 10001;
 }
 .hamburger, .hamburger::before, .hamburger::after {
   content: ''; display: block; width: 22px; height: 2px;
@@ -75,13 +121,13 @@ img { display: block; max-width: 100%; }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* 點擊後變叉叉 */
+/* 變換叉叉狀態 */
 .menu-toggle.is-active .hamburger { background: transparent !important; }
 .menu-toggle.is-active .hamburger::before { top: 0 !important; transform: rotate(45deg) !important; }
 .menu-toggle.is-active .hamburger::after { top: 0 !important; transform: rotate(-45deg) !important; }
 
 /* ==========================================
-   5. 手機選單與遮罩 (完全配合 JS)
+   5. 手機版面板與遮罩 (還原原版配色)
    ========================================== */
 .mobile-nav-panel {
   position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
@@ -93,6 +139,7 @@ img { display: block; max-width: 100%; }
   display: block; padding: 1.2rem 2.5rem; text-decoration: none; 
   color: var(--text); border-bottom: 1px solid var(--line); font-weight: 500; 
 }
+
 .nav-overlay {
   display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.3); z-index: 9998; backdrop-filter: blur(4px);
@@ -100,28 +147,69 @@ img { display: block; max-width: 100%; }
 .nav-overlay.is-active { display: block; }
 
 /* ==========================================
-   6. 響應式佈局修正
+   6. 內容組件 (原版所有細節：Hero, Button, Link-card)
+   ========================================== */
+.hero { padding: 4.5rem 0 3rem; }
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 2rem; align-items: center;
+}
+.hero h1 {
+  margin: 0; font-family: "Noto Serif TC", serif; line-height: 1.14;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+}
+.hero-text {
+  margin: 1.25rem 0 0; max-width: 40rem; color: var(--muted);
+  font-size: 1.05rem; line-height: 1.9;
+}
+
+.button {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 144px;
+  padding: 0.95rem 1.4rem; border-radius: 999px; font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none;
+}
+.button:hover { transform: translateY(-2px); }
+.primary {
+  background: linear-gradient(135deg, var(--brand-deep), #15738a);
+  color: white; box-shadow: 0 20px 30px rgba(21, 115, 138, 0.24);
+}
+.secondary { background: white; border: 1px solid var(--line); color: var(--brand-night); }
+
+.link-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+.link-card {
+  display: block; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08); transition: transform 0.2s ease;
+  text-decoration: none; min-height: 180px; padding: 1.35rem; text-align: center;
+}
+.link-card span {
+  display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center;
+  margin: 0 auto; border-radius: 50%; background: var(--panel-soft); color: var(--brand-deep); font-weight: 800;
+}
+.link-card strong { display: block; margin-top: 1rem; font-size: 1.05rem; line-height: 1.6; color: var(--text); }
+.link-card small { display: block; margin-top: 0.6rem; line-height: 1.7; color: var(--muted); }
+
+/* ==========================================
+   7. Footer (原版配色還原)
+   ========================================== */
+.site-footer {
+  margin-top: 3rem; padding: 2.5rem 0 3.5rem;
+  background: var(--brand-night); color: rgba(255, 255, 255, 0.92);
+}
+.footer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+.footer-title { color: #9cd9e6; margin-bottom: 0.75rem; font-weight: 700; font-size: 0.82rem; }
+.footer-mail { display: block; color: white; font-weight: 700; text-decoration: none; margin-bottom: 0.8rem; }
+
+/* ==========================================
+   8. 響應式佈局 (精確修正)
    ========================================== */
 @media (max-width: 980px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
+  .hero-grid, .footer-grid { grid-template-columns: 1fr; }
+  .link-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* ==========================================
-   7. 原版卡片與按鈕風格 (恢復原狀)
-   ========================================== */
-.hero { padding: 4.5rem 0 3rem; }
-.button {
-  display: inline-flex; align-items: center; justify-content: center; min-width: 144px;
-  padding: 0.95rem 1.4rem; border-radius: 999px; font-weight: 700;
-  transition: 0.2s; text-decoration: none;
+@media (max-width: 640px) {
+  .link-grid { grid-template-columns: 1fr; }
+  .button { width: 100%; }
 }
-.primary { background: linear-gradient(135deg, var(--brand-deep), #15738a); color: white; box-shadow: 0 20px 30px rgba(21, 115, 138, 0.24); }
-.secondary { background: white; border: 1px solid var(--line); color: var(--brand-night); }
-.link-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
-.link-card {
-  display: block; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08); transition: 0.2s; text-decoration: none;
-  min-height: 180px; padding: 1.35rem; text-align: center;
-}
-.link-card:hover { transform: translateY(-2px); }
