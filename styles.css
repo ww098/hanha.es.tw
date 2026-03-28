@@ -1,4 +1,4 @@
-/* --- 1. 核心變量 (保留你的配色) --- */
+/* --- 1. 核心配色與基礎 (恢復原版質感) --- */
 :root {
   --bg: #f4f7fb;
   --text: #17324a;
@@ -13,10 +13,10 @@ body {
   font-family: "Noto Sans TC", sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* --- 2. 導覽列風格：精確還原原版 (高度、間距) --- */
+/* --- 2. 導覽列 (電腦版風格回歸) --- */
 .site-header {
   position: sticky;
   top: 0;
@@ -34,124 +34,76 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 92%;
+  width: 90%;
   max-width: 1120px;
   margin: 0 auto;
 }
 
-/* --- 3. 校名風格：英文小字 + 透明度 --- */
-.brand {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-}
-
-.brand img {
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 12px;
-  background: #fff;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-}
+/* --- 3. 校名與英文小字 (透明度還原) --- */
+.brand { display: flex; align-items: center; text-decoration: none; color: inherit; }
+.brand img { width: 48px; height: 48px; margin-right: 12px; border-radius: 10px; }
+.brand-text { display: flex; flex-direction: column; }
 
 .brand-en {
   font-size: 10px;
   color: var(--muted);
-  opacity: 0.5; /* 關鍵透明度 */
+  opacity: 0.5; /* 原版透明度 */
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: -2px;
 }
+.brand strong { font-size: 1.15rem; font-weight: 700; }
 
-.brand strong {
-  font-size: 1.15rem;
-  font-weight: 700;
-}
+/* --- 4. 電腦版連結 --- */
+.desktop-nav { display: flex; gap: 28px; }
+.desktop-nav a { text-decoration: none; color: var(--muted); font-size: 0.95rem; transition: 0.2s; }
+.desktop-nav a.active { color: var(--brand-night); font-weight: 800; }
 
-/* --- 4. 電腦版導覽列：間距還原 --- */
-.desktop-nav {
-  display: flex;
-  gap: 28px;
-}
-
-.desktop-nav a {
-  text-decoration: none;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: 0.2s;
-}
-
-.desktop-nav a.active {
-  color: var(--brand-night);
-  font-weight: 800;
-}
-
-/* --- 5. 漢堡按鈕與叉叉修正 (核心修復) --- */
+/* --- 5. 漢堡按鈕與叉叉 (最強制修復) --- */
 .menu-toggle {
   display: none;
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   background: none; border: none;
   cursor: pointer; position: relative; z-index: 10001;
 }
 
+/* 漢堡線條 */
 .hamburger, .hamburger::before, .hamburger::after {
-  content: ''; display: block;
-  width: 22px; height: 2px;
-  background: var(--text);
-  position: absolute; left: 9px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  content: ''; display: block; width: 22px; height: 2px;
+  background: var(--text); position: absolute; left: 11px;
+  transition: all 0.3s ease-in-out;
 }
+.hamburger { top: 21px; }
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
 
-.hamburger { top: 19px; }
-.hamburger::before { top: -7px; }
-.hamburger::after { top: 7px; }
+/* 變換叉叉：強制將 before/after 移回中心點再旋轉 */
+.menu-toggle.is-active .hamburger { background: transparent !important; }
 
-/* 變換叉叉 (強制座標歸零) */
-.menu-toggle.is-active .hamburger {
-  background: transparent !important;
-}
 .menu-toggle.is-active .hamburger::before {
   top: 0 !important;
   transform: rotate(45deg) !important;
   -webkit-transform: rotate(45deg) !important;
 }
+
 .menu-toggle.is-active .hamburger::after {
   top: 0 !important;
   transform: rotate(-45deg) !important;
   -webkit-transform: rotate(-45deg) !important;
 }
 
-/* --- 6. 手機版面板：防止頁面跑掉 --- */
+/* --- 6. 手機版選單面板 --- */
 .mobile-nav-panel {
-  position: fixed;
-  top: 0; right: -100%; /* 使用百分比確保完全隱藏 */
+  position: fixed; top: 0; right: -100%;
   width: 280px; height: 100vh;
-  background: #ffffff;
-  z-index: 10000;
-  padding-top: 80px;
-  transition: right 0.4s ease;
+  background: #fff; z-index: 10000;
+  padding-top: 80px; transition: right 0.3s ease;
   box-shadow: -10px 0 20px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
 }
-
-.mobile-nav-panel.is-active {
-  right: 0;
-}
-
+.mobile-nav-panel.is-active { right: 0; }
 .mobile-nav-panel a {
-  padding: 18px 35px;
-  text-decoration: none;
-  color: var(--text);
-  border-bottom: 1px solid #f5f5f5;
-  font-size: 1.05rem;
+  display: block; padding: 20px 40px;
+  text-decoration: none; color: var(--text);
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .nav-overlay {
@@ -160,7 +112,7 @@ body {
 }
 .nav-overlay.is-active { display: block; }
 
-/* --- 7. 響應式切換 (關鍵隔離) --- */
+/* --- 7. 響應式切換 --- */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
