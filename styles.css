@@ -1,101 +1,130 @@
-/* --- 1. 基礎重置 (確保不被其他樣式干擾) --- */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: "Noto Sans TC", sans-serif; background: #f4f7fb; color: #17324a; overflow-x: hidden; }
+/* --- 1. 核心變數：還原原版質感 --- */
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --panel-soft: #eef5fb;
+  --line: #d9e6f0;
+  --text: #17324a;
+  --muted: #537289;
+  --brand: #6eb7d8;
+  --brand-deep: #1a9bb8;
+  --brand-night: #16384b;
+  --link: #2d546c;
+  --shadow: 0 22px 60px rgba(22, 56, 75, 0.12);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
 
-/* --- 2. 導覽列主體 (原版高度與模糊感) --- */
+/* --- 2. 基礎設定 --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  background: radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
+              linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* --- 3. 導覽列：原版風格 + 叉叉修正 --- */
 .site-header {
-  position: sticky; top: 0; z-index: 9999;
-  height: 76px; display: flex; align-items: center;
-  background: rgba(244, 247, 251, 0.9) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid #d9e6f0;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  height: 76px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(244, 247, 251, 0.82);
+  border-bottom: 1px solid rgba(217, 230, 240, 0.9);
+  display: flex;
+  align-items: center;
 }
 
 .nav-shell {
-  display: flex; justify-content: space-between; align-items: center;
-  width: 90%; max-width: 1120px; margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
 }
 
-/* --- 3. 校名與英文小字 (精確還原透明度) --- */
-.brand { display: flex; align-items: center; text-decoration: none; color: #17324a; }
-.brand img { width: 48px; height: 48px; margin-right: 12px; border-radius: 10px; background: #fff; }
+/* 校名：英文細小透明 + 中文粗體 */
+.brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; color: inherit; }
+.brand img { 
+  width: 52px; height: 52px; border-radius: 14px; background: white;
+  box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14);
+}
 .brand-text { display: flex; flex-direction: column; }
-
-.brand-en {
-  font-size: 10px !important;
-  color: #537289 !important;
-  opacity: 0.5 !important; /* 你的透明度要求 */
-  letter-spacing: 1px;
+.brand-en { 
+  font-size: 0.7rem; 
+  color: var(--muted); 
+  opacity: 0.5; /* 透明度還原 */
+  letter-spacing: 0.15em; 
   text-transform: uppercase;
-  line-height: 1;
 }
-.brand strong { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+.brand strong { font-size: 1.15rem; font-weight: 700; }
 
-/* --- 4. 電腦版連結風格 --- */
-.desktop-nav { display: flex; gap: 28px; }
-.desktop-nav a { text-decoration: none; color: #537289; font-size: 0.95rem; font-weight: 500; transition: 0.2s; }
-.desktop-nav a.active { color: #16384b !important; font-weight: 800 !important; }
+/* 電腦導覽連結 */
+.desktop-nav { display: flex; gap: 1.5rem; }
+.desktop-nav a { color: var(--muted); font-size: 0.95rem; text-decoration: none; transition: 0.2s; }
+.desktop-nav a.active { color: var(--brand-night); font-weight: 800; }
 
-/* --- 5. 漢堡按鈕 (解決叉叉消失的最終手段) --- */
+/* 漢堡按鈕：解決叉叉消失 */
 .menu-toggle {
   display: none; width: 44px; height: 44px;
-  background: none !important; border: none !important;
-  cursor: pointer; position: relative; z-index: 10001;
+  background: none; border: none; cursor: pointer; position: relative; z-index: 10001;
 }
-
-/* 漢堡三條線 */
 .hamburger, .hamburger::before, .hamburger::after {
-  content: '' !important; display: block !important;
-  width: 22px !important; height: 2px !important;
-  background: #17324a !important;
-  position: absolute !important; left: 11px !important;
-  transition: all 0.3s ease-in-out !important;
+  content: ''; display: block; width: 22px; height: 2px;
+  background: var(--text); position: absolute; left: 11px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hamburger { top: 21px; }
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* 變身叉叉動畫 */
+.menu-toggle.is-active .hamburger { background: transparent !important; }
+.menu-toggle.is-active .hamburger::before { top: 0 !important; transform: rotate(45deg) !important; }
+.menu-toggle.is-active .hamburger::after { top: 0 !important; transform: rotate(-45deg) !important; }
+
+/* --- 4. 原版內容風格 (Hero, Card, Button) --- */
+.hero { padding: 4.5rem 0 3rem; }
+.hero h1 { font-family: "Noto Serif TC", serif; font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1.14; }
+.hero-text { margin: 1.25rem 0 0; color: var(--muted); font-size: 1.05rem; line-height: 1.9; }
+
+.button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 144px; padding: 0.95rem 1.4rem; border-radius: 999px;
+  font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
+}
+.primary { background: linear-gradient(135deg, var(--brand-deep), #15738a); color: white; box-shadow: 0 20px 30px rgba(21, 115, 138, 0.24); }
+.button:hover { transform: translateY(-2px); }
+
+.link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.link-card {
+  padding: 1.5rem; background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow); text-align: center; text-decoration: none;
 }
 
-.hamburger { top: 21px !important; }
-.hamburger::before { top: -8px !important; }
-.hamburger::after { top: 8px !important; }
-
-/* 【關鍵】點擊後的叉叉動畫修正 */
-.menu-toggle.is-active .hamburger {
-  background: transparent !important; /* 中間線變透明 */
-}
-
-.menu-toggle.is-active .hamburger::before {
-  top: 0 !important;
-  transform: translateZ(0) rotate(45deg) !important;
-  -webkit-transform: translateZ(0) rotate(45deg) !important;
-}
-
-.menu-toggle.is-active .hamburger::after {
-  top: 0 !important;
-  transform: translateZ(0) rotate(-45deg) !important;
-  -webkit-transform: translateZ(0) rotate(-45deg) !important;
-}
-
-/* --- 6. 手機版面板與遮罩 --- */
+/* --- 5. 手機版面板 --- */
 .mobile-nav-panel {
-  position: fixed; top: 0; right: -100%;
-  width: 280px; height: 100vh;
-  background: #ffffff; z-index: 10000;
-  padding-top: 80px; transition: right 0.4s ease;
+  position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+  background: #fff; z-index: 10000; padding-top: 80px; transition: right 0.3s ease;
   box-shadow: -10px 0 20px rgba(0,0,0,0.05);
 }
-.mobile-nav-panel.is-active { right: 0 !important; }
-.mobile-nav-panel a {
-  display: block; padding: 20px 40px;
-  text-decoration: none; color: #17324a;
-  border-bottom: 1px solid #f0f0f0;
-}
+.mobile-nav-panel.is-active { right: 0; }
+.mobile-nav-panel a { display: block; padding: 20px 40px; text-decoration: none; color: var(--text); border-bottom: 1px solid #f0f0f0; }
 
 .nav-overlay {
-  display: none; position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 9998;
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3); z-index: 9998;
 }
-.nav-overlay.is-active { display: block !important; }
+.nav-overlay.is-active { display: block; }
 
-/* --- 7. 響應式切換 --- */
+/* --- 6. 響應式佈局 --- */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
