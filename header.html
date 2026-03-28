@@ -30,24 +30,26 @@
     const overlay = document.getElementById('navOverlay');
 
     if (btn && nav && overlay) {
-      function toggleMenu(e) {
-        if(e) e.preventDefault();
-        // 切換 class
+      function toggleMenu() {
         btn.classList.toggle('active');
         nav.classList.toggle('active');
         overlay.classList.toggle('active');
         
         // 禁止捲動
-        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        if (nav.classList.contains('active')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
       }
 
       btn.onclick = toggleMenu;
       overlay.onclick = toggleMenu;
 
-      // 自動標記當前頁面
-      const currentUrl = window.location.href;
+      // 自動同步 active 狀態
+      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
       document.querySelectorAll('.main-nav a').forEach(link => {
-        if (currentUrl.includes(link.getAttribute('href'))) {
+        if (link.getAttribute('href').includes(currentPath)) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
