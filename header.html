@@ -1,7 +1,5 @@
-<!-- header.html -->
 <header class="site-header">
   <div class="container nav-shell">
-    <!-- 校徽與品牌 -->
     <a class="brand" href="./index.html">
       <img src="./home-preview.png" alt="寒合國小校徽" />
       <div>
@@ -27,3 +25,98 @@
     </div>
   </div>
 </header>
+
+<style>
+/* 基本字型與內容間距 */
+body {
+  margin: 0;
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  padding-top: 80px; /* header 高度，避免內容被擋住 */
+}
+
+/* Header 固定 */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 導覽容器 */
+.nav-shell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px; /* 保留原本 iOS 風格間距 */
+}
+
+/* 校徽與品牌 */
+.brand img { height: 60px; }
+.brand div { display: inline-block; margin-left: 10px; }
+.brand-kicker { display: block; font-size: 0.85rem; color: #555; }
+.brand strong { font-size: 1.25rem; }
+
+/* 導覽列 */
+.main-nav a {
+  margin-left: 25px;
+  font-weight: 500;
+  color: #333;
+  transition: color 0.3s;
+}
+.main-nav a:hover,
+.main-nav a.active { color: #0077cc; }
+
+/* 漢堡按鈕 */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+.hamburger span {
+  display: block;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* 手機版 */
+@media (max-width: 768px) {
+  .main-nav {
+    position: absolute;
+    top: 80px; /* header 下方 */
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    background: #fff;
+    transition: max-height 0.4s ease;
+  }
+  .main-nav.show { max-height: 500px; }
+  .main-nav a { margin: 15px 20px; }
+  .hamburger { display: flex; }
+}
+
+/* 漢堡變 X */
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+</style>
+
+<script>
+// 漢堡控制選單
+const hamburger = document.getElementById('hamburger');
+const mainNav = document.getElementById('mainNav');
+hamburger.addEventListener('click', () => {
+  mainNav.classList.toggle('show');
+  hamburger.classList.toggle('active');
+});
+</script>
