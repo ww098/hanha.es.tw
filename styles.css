@@ -574,72 +574,81 @@ img {
     width: 100%;
   }
 }
-/* --- 基礎設定 --- */
+/* --- 1. 基礎重置與 Header 固定 --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
 
 .site-header {
-  background: rgba(255, 255, 255, 0.85) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
-  backdrop-filter: blur(15px) !important;
-  position: sticky; top: 0; width: 100%; z-index: 2000 !important;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  position: sticky !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 75px !important;
+  z-index: 9999 !important;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .nav-shell {
-  display: flex !important; justify-content: space-between !important; align-items: center !important;
-  height: 75px !important; max-width: 1200px; margin: 0 auto; padding: 0 20px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 100% !important;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px !important;
 }
 
-/* --- 防止校徽壓扁 --- */
+/* --- 2. 校徽處理 --- */
 .brand { display: flex !important; align-items: center !important; text-decoration: none !important; color: #333 !important; flex-shrink: 0 !important; }
-.brand img { width: 48px !important; height: 48px !important; flex-shrink: 0 !important; margin-right: 12px; }
+.brand img { width: 48px !important; height: 48px !important; margin-right: 12px !important; flex-shrink: 0 !important; }
 
-/* --- 電腦版導覽列 --- */
-.desktop-nav { display: flex !important; }
-.desktop-nav a { margin-left: 25px; text-decoration: none; color: #444; font-weight: 500; transition: 0.3s; }
-.desktop-nav a.active { color: #0056b3 !important; font-weight: 700 !important; }
-
-/* --- 漢堡按鈕核心樣式 (確保在 Safari 也能轉向) --- */
+/* --- 3. 漢堡按鈕與叉叉動畫 --- */
 .menu-toggle {
-  display: none; width: 44px; height: 44px;
+  display: none; /* 電腦隱藏 */
+  width: 44px; height: 44px;
   background: none !important; border: none !important;
-  cursor: pointer; position: relative; z-index: 3001 !important;
+  position: relative !important; z-index: 10001 !important;
+  cursor: pointer;
 }
 
 .hamburger, .hamburger::before, .hamburger::after {
-  content: ''; display: block; width: 24px; height: 2px;
-  background: #333 !important; position: absolute; left: 10px;
-  transition: transform 0.3s ease-in-out, top 0.3s ease-in-out, background 0.2s !important;
+  content: '' !important; display: block !important; width: 24px !important; height: 2px !important;
+  background: #333 !important; position: absolute !important; left: 10px !important;
+  transition: all 0.3s ease-in-out !important;
 }
+.hamburger { top: 21px !important; }
+.hamburger::before { top: -8px !important; }
+.hamburger::after { top: 8px !important; }
 
-.hamburger { top: 21px; }
-.hamburger::before { top: -8px; }
-.hamburger::after { top: 8px; }
+/* 變叉叉狀態 */
+.menu-toggle.is-active .hamburger { background: transparent !important; }
+.menu-toggle.is-active .hamburger::before { transform: rotate(45deg) !important; top: 0 !important; }
+.menu-toggle.is-active .hamburger::after { transform: rotate(-45deg) !important; top: 0 !important; }
 
-/* --- 強制叉叉狀態 (關鍵修正) --- */
-.menu-toggle.is-active .hamburger {
-  background: transparent !important;
+/* --- 4. 電腦版導覽文字 --- */
+.desktop-nav { display: flex !important; align-items: center !important; }
+.desktop-nav a {
+  margin-left: 25px !important; text-decoration: none !important; color: #444 !important;
+  font-weight: 500 !important; font-size: 1rem !important; transition: 0.3s !important;
 }
-.menu-toggle.is-active .hamburger::before {
-  top: 0 !important;
-  transform: rotate(45deg) !important;
-  -webkit-transform: rotate(45deg) !important;
-}
-.menu-toggle.is-active .hamburger::after {
-  top: 0 !important;
-  transform: rotate(-45deg) !important;
-  -webkit-transform: rotate(-45deg) !important;
-}
+.desktop-nav a.active { color: #0056b3 !important; font-weight: 700 !important; }
 
-/* --- 手機版側邊欄 --- */
+/* --- 5. 手機版側邊選單 --- */
 .mobile-nav-panel {
-  position: fixed !important; top: 0; right: 0;
+  position: fixed !important;
+  top: 0 !important; right: 0 !important;
   width: 280px !important; height: 100vh !important;
-  background: #ffffff !important; z-index: 3000 !important;
-  display: flex !important; flex-direction: column !important; padding-top: 100px !important;
-  visibility: hidden !important; transform: translateX(100%) !important;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s !important;
+  background: #ffffff !important;
+  z-index: 10000 !important;
+  display: block !important; /* Safari 必須設為 block */
+  padding-top: 100px !important;
+  
+  /* 初始隱藏 */
+  visibility: hidden !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.3s ease, visibility 0.3s !important;
   box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
@@ -648,20 +657,26 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
   transform: translateX(0) !important;
 }
 
+/* 手機版文字格式修正 */
 .mobile-nav-panel a {
-  display: block !important; width: 100%; padding: 20px 40px !important;
-  text-decoration: none !important; color: #333 !important; font-size: 1.15rem !important;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: block !important;
+  width: 100% !important;
+  padding: 20px 40px !important;
+  text-decoration: none !important;
+  color: #333 !important;
+  font-size: 1.2rem !important;
+  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  line-height: 1.5 !important;
 }
 
 /* 遮罩 */
 .nav-overlay {
-  display: none; position: fixed !important; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5) !important; z-index: 2999 !important;
+  display: none; position: fixed !important; top: 0; left: 0; 
+  width: 100%; height: 100%; background: rgba(0,0,0,0.5) !important; z-index: 9998 !important;
 }
 .nav-overlay.is-active { display: block !important; }
 
-/* --- 響應式切換 --- */
+/* --- 6. 媒體查詢 (嚴格尺寸隔離) --- */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
