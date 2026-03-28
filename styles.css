@@ -1,4 +1,4 @@
-/* --- 1. 核心配色與基礎 (恢復原版質感) --- */
+/* --- 1. 核心變數 (還原你的原版配色) --- */
 :root {
   --bg: #f4f7fb;
   --text: #17324a;
@@ -7,6 +7,7 @@
   --line: #d9e6f0;
 }
 
+/* --- 2. 基礎設定 --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -16,7 +17,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- 2. 導覽列 (電腦版風格回歸) --- */
+/* --- 3. 導覽列風格 (還原原版高度與透明感) --- */
 .site-header {
   position: sticky;
   top: 0;
@@ -39,45 +40,91 @@ body {
   margin: 0 auto;
 }
 
-/* --- 3. 校名與英文小字 (透明度還原) --- */
-.brand { display: flex; align-items: center; text-decoration: none; color: inherit; }
-.brand img { width: 48px; height: 48px; margin-right: 12px; border-radius: 10px; }
-.brand-text { display: flex; flex-direction: column; }
+/* --- 4. 校名風格 (英文細小透明) --- */
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand img {
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+  border-radius: 10px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
 
 .brand-en {
-  font-size: 10px;
-  color: var(--muted);
-  opacity: 0.5; /* 原版透明度 */
+  font-size: 10px;    /* 縮小字體 */
+  opacity: 0.5;      /* 增加透明度 */
   letter-spacing: 1px;
   text-transform: uppercase;
+  font-family: sans-serif;
 }
-.brand strong { font-size: 1.15rem; font-weight: 700; }
 
-/* --- 4. 電腦版連結 --- */
-.desktop-nav { display: flex; gap: 28px; }
-.desktop-nav a { text-decoration: none; color: var(--muted); font-size: 0.95rem; transition: 0.2s; }
-.desktop-nav a.active { color: var(--brand-night); font-weight: 800; }
+.brand strong {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
 
-/* --- 5. 漢堡按鈕與叉叉 (最強制修復) --- */
+/* --- 5. 電腦版導覽列 --- */
+.desktop-nav {
+  display: flex;
+  gap: 28px;
+}
+
+.desktop-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.desktop-nav a.active {
+  color: var(--brand-night);
+  font-weight: 800;
+}
+
+/* --- 6. 漢堡按鈕與叉叉絕對修正 --- */
 .menu-toggle {
   display: none;
-  width: 44px; height: 44px;
-  background: none; border: none;
-  cursor: pointer; position: relative; z-index: 10001;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 10001;
 }
 
 /* 漢堡線條 */
 .hamburger, .hamburger::before, .hamburger::after {
-  content: ''; display: block; width: 22px; height: 2px;
-  background: var(--text); position: absolute; left: 11px;
+  content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  position: absolute;
+  left: 11px;
   transition: all 0.3s ease-in-out;
 }
+
 .hamburger { top: 21px; }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* 變換叉叉：強制將 before/after 移回中心點再旋轉 */
-.menu-toggle.is-active .hamburger { background: transparent !important; }
+/* 叉叉動畫：這一段是解決消失的關鍵 */
+.menu-toggle.is-active .hamburger {
+  background: transparent !important;
+}
 
 .menu-toggle.is-active .hamburger::before {
   top: 0 !important;
@@ -91,28 +138,48 @@ body {
   -webkit-transform: rotate(-45deg) !important;
 }
 
-/* --- 6. 手機版選單面板 --- */
+/* --- 7. 手機版面板 --- */
 .mobile-nav-panel {
-  position: fixed; top: 0; right: -100%;
-  width: 280px; height: 100vh;
-  background: #fff; z-index: 10000;
-  padding-top: 80px; transition: right 0.3s ease;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 10000;
+  padding-top: 80px;
+  transition: right 0.3s ease;
   box-shadow: -10px 0 20px rgba(0,0,0,0.05);
 }
-.mobile-nav-panel.is-active { right: 0; }
+
+.mobile-nav-panel.is-active {
+  right: 0;
+}
+
 .mobile-nav-panel a {
-  display: block; padding: 20px 40px;
-  text-decoration: none; color: var(--text);
+  display: block;
+  padding: 20px 40px;
+  text-decoration: none;
+  color: var(--text);
   border-bottom: 1px solid #f0f0f0;
 }
 
 .nav-overlay {
-  display: none; position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 9998;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 9998;
 }
-.nav-overlay.is-active { display: block; }
 
-/* --- 7. 響應式切換 --- */
+.nav-overlay.is-active {
+  display: block;
+}
+
+/* --- 8. 響應式切換 --- */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
   .menu-toggle { display: block !important; }
