@@ -16,17 +16,14 @@
   </head>
  <body>
   <div id="site-header"></div>
-
-  <script>
-    fetch('./header.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById('site-header').innerHTML = data;
-        
-        // 載入後手動觸發漢堡選單邏輯 (需確認邏輯已寫在 header.html 或主 JS 中)
-        initMobileMenu(); 
-      });
-  </script>
+<script>
+  fetch('./header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('site-header').innerHTML = data;
+      // 腳本會自動執行 header.html 裡的 <script>
+    });
+</script>
 
     <main>
       <section class="page-hero">
