@@ -1,134 +1,81 @@
-/* --- 1. 核心變數 (完全採用你的原版) --- */
+/* --- 1. 還原所有原版變數 --- */
 :root {
   --bg: #f4f7fb;
   --panel: #ffffff;
-  --panel-soft: #eef5fb;
   --line: #d9e6f0;
   --text: #17324a;
   --muted: #537289;
-  --brand: #6eb7d8;
   --brand-deep: #1a9bb8;
   --brand-night: #16384b;
-  --link: #2d546c;
   --shadow: 0 22px 60px rgba(22, 56, 75, 0.12);
-  --radius-xl: 28px;
   --radius-lg: 20px;
-  --radius-md: 14px;
 }
 
-/* --- 2. 基礎設定 (完全採用你的原版) --- */
+/* --- 2. 基礎還原 (防止預設樣式干擾) --- */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: "Noto Sans TC", sans-serif;
-  background:
-    radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
-    linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
+  background: radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
+              linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
   color: var(--text);
-  overflow-x: hidden;
 }
-a { color: var(--link); text-decoration: underline; text-underline-offset: 0.18em; }
-img { display: block; max-width: 100%; }
 
-/* --- 3. 導覽列風格 (修正：將原版 CSS 對接到你的 HTML 類別) --- */
+/* --- 3. 導覽列：精確對應你的 HTML --- */
 .site-header {
   position: sticky; top: 0; z-index: 9999;
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  background: rgba(244, 247, 251, 0.82);
+  height: 76px; display: flex; align-items: center;
+  backdrop-filter: blur(14px); background: rgba(244, 247, 251, 0.82);
   border-bottom: 1px solid rgba(217, 230, 240, 0.9);
 }
+
 .nav-shell {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 1.5rem; min-height: 76px;
   width: min(1120px, calc(100% - 2rem)); margin: 0 auto;
 }
 
-/* 校名風格：修正類別名稱為 .brand-en */
-.brand { display: inline-flex; align-items: center; gap: 0.9rem; color: inherit; text-decoration: none; }
-.brand img { width: 52px; height: 52px; border-radius: 14px; background: white; box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14); }
-.brand-en { 
-  display: block; color: var(--muted); font-size: 0.72rem; 
-  letter-spacing: 0.18em; opacity: 0.5; /* 手動加入原版缺少的透明度 */
-}
-.brand strong { font-size: 1.1rem; }
+/* 校名：對應 .brand-en */
+.brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; color: inherit; }
+.brand img { width: 52px; height: 52px; border-radius: 14px; box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14); }
+.brand-en { display: block; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.18em; opacity: 0.5; }
 
-/* 電腦版導覽：將 .main-nav 改為對應你的 .desktop-nav */
-.desktop-nav { display: flex; gap: 1rem; }
+/* 電腦選單：對應 .desktop-nav (這是你現在 HTML 用的名稱) */
+.desktop-nav { display: flex; gap: 1.5rem; }
 .desktop-nav a { color: var(--muted); font-size: 0.95rem; text-decoration: none; font-weight: 500; }
-.desktop-nav a.active { color: var(--brand-night); font-weight: 800; }
 
-/* --- 4. 漢堡變叉叉 (這是新增的功能，但使用原版配色) --- */
+/* --- 4. 漢堡變叉叉：核心動畫 --- */
 .menu-toggle {
-  display: none; width: 44px; height: 44px; background: none; border: none; cursor: pointer; position: relative; z-index: 10001;
+  display: none; width: 44px; height: 44px; background: none; border: none; cursor: pointer; position: relative;
 }
 .hamburger, .hamburger::before, .hamburger::after {
-  content: ''; display: block; width: 22px; height: 2px;
-  background: var(--text); position: absolute; left: 11px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  content: ''; display: block; width: 22px; height: 2px; background: var(--text); position: absolute; left: 11px; transition: 0.3s;
 }
 .hamburger { top: 21px; }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* 變叉叉關鍵代碼 */
+/* 變叉叉關鍵 (強制覆蓋) */
 .menu-toggle.is-active .hamburger { background: transparent !important; }
 .menu-toggle.is-active .hamburger::before { top: 0 !important; transform: rotate(45deg) !important; }
 .menu-toggle.is-active .hamburger::after { top: 0 !important; transform: rotate(-45deg) !important; }
 
-/* --- 5. 手機側邊欄面板 (配合你的 HTML ID) --- */
+/* --- 5. 手機版面板 --- */
 .mobile-nav-panel {
   position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
-  background: var(--panel); z-index: 10000; padding-top: 80px; transition: right 0.4s ease;
+  background: #fff; z-index: 10000; padding-top: 80px; transition: 0.4s;
   box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
-.mobile-nav-panel.is-active { right: 0; }
-.mobile-nav-panel a { 
-  display: block; padding: 1.2rem 2.5rem; text-decoration: none; 
-  color: var(--text); border-bottom: 1px solid var(--line); font-weight: 500; 
-}
+.mobile-nav-panel.is-active { right: 0 !important; }
+.mobile-nav-panel a { display: block; padding: 1.2rem 2.5rem; text-decoration: none; color: var(--text); border-bottom: 1px solid var(--line); }
 
-.nav-overlay {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.3); z-index: 9998; backdrop-filter: blur(4px);
-}
-.nav-overlay.is-active { display: block; }
+.nav-overlay.is-active { display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 9998; }
 
-/* --- 6. 原版 Hero、按鈕與卡片 (完全複製你的原版) --- */
-.hero { padding: 4.5rem 0 3rem; }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr); gap: 2rem; align-items: center; }
-.hero h1 { font-family: "Noto Serif TC", serif; line-height: 1.14; font-size: clamp(2.6rem, 5vw, 4.4rem); margin: 0; }
-.hero-text { margin: 1.25rem 0 0; max-width: 40rem; color: var(--muted); font-size: 1.05rem; line-height: 1.9; }
-
-.button {
-  display: inline-flex; align-items: center; justify-content: center; min-width: 144px;
-  padding: 0.95rem 1.4rem; border-radius: 999px; font-weight: 700;
-  transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none;
-}
-.primary { background: linear-gradient(135deg, var(--brand-deep), #15738a); color: white; box-shadow: 0 20px 30px rgba(21, 115, 138, 0.24); }
-.secondary { background: white; border: 1px solid var(--line); color: var(--brand-night); }
-.button:hover { transform: translateY(-2px); }
-
-.link-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
-.link-card {
-  display: block; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08); transition: transform 0.2s ease; text-decoration: none;
-  min-height: 180px; padding: 1.35rem; text-align: center;
-}
-.link-card:hover { transform: translateY(-2px); }
-
-/* --- 7. 響應式佈局 (修正：對應你的 .desktop-nav) --- */
+/* --- 6. 響應式：切換導覽列 --- */
 @media (max-width: 980px) {
-  .desktop-nav { display: none; } 
-  .menu-toggle { display: block; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .link-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .desktop-nav { display: none !important; }
+  .menu-toggle { display: block !important; }
 }
 
-@media (max-width: 640px) {
-  .link-grid { grid-template-columns: 1fr; }
-  .button { width: 100%; }
-}
-
-/* 其餘 Footer 風格請直接接在後面... */
-.site-footer { margin-top: 3rem; padding: 2.5rem 0 3.5rem; background: var(--brand-night); color: rgba(255, 255, 255, 0.92); }
+/* --- 7. 還原按鈕與卡片 --- */
+.button { display: inline-flex; align-items: center; justify-content: center; min-width: 144px; padding: 1rem; border-radius: 999px; font-weight: 700; text-decoration: none; }
+.primary { background: linear-gradient(135deg, var(--brand-deep), #15738a); color: white; box-shadow: 0 20px 30px rgba(21, 115, 138, 0.24); }
