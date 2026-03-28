@@ -486,11 +486,11 @@ img {
 .mobile-only-buttons {
   display: none; /* 桌機隱藏 */
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .mobile-only-buttons .button {
-  width: 100%; /* 滿寬按鈕 */
+  width: auto; /* 滿寬按鈕 */
 }
 
 /* 手機版才顯示 */
@@ -499,7 +499,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
+    align-items: flex-start;
 }
   .mobile-only-buttons {
     padding: 1.4rem;
