@@ -1,5 +1,7 @@
+<!-- header.html -->
 <header class="site-header">
   <div class="container nav-shell">
+    <!-- 校徽與品牌 -->
     <a class="brand" href="./index.html">
       <img src="./home-preview.png" alt="寒合國小校徽" />
       <div>
@@ -27,30 +29,34 @@
 </header>
 
 <style>
-/* ================= 基本樣式 ================= */
+/* 保持原本字型、字重、顏色 */
 body {
   margin: 0;
   font-family: 'Noto Sans TC', sans-serif;
+  padding-top: 70px; /* header 高度，確保內容不被擋住 */
 }
 
+/* header 固定 */
 .site-header {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #fff;
+  background: #fff;
   z-index: 9999;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+/* 導覽列容器 */
 .nav-shell {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 20px; /* 保持原本間距 */
 }
 
+/* 導覽列文字 */
 .main-nav a {
-  margin-left: 20px;
+  margin-left: 20px; /* 保持原本間距 */
   text-decoration: none;
   color: #333;
   transition: color 0.3s;
@@ -58,7 +64,7 @@ body {
 
 .main-nav a:hover,
 .main-nav a.active {
-  color: #0077cc;
+  color: #0077cc; /* 原本 active 顏色 */
 }
 
 /* 漢堡按鈕 */
@@ -79,11 +85,11 @@ body {
   transition: 0.4s;
 }
 
-/* ================= 手機版 ================= */
+/* 手機版響應式 */
 @media (max-width: 768px) {
   .main-nav {
     position: absolute;
-    top: 60px;
+    top: 60px; /* 漢堡下方 */
     left: 0;
     width: 100%;
     background-color: #fff;
@@ -94,7 +100,7 @@ body {
   }
 
   .main-nav.show {
-    max-height: 500px; /* 足夠放下所有選單 */
+    max-height: 500px; /* 可以容納所有選單 */
   }
 
   .main-nav a {
@@ -104,16 +110,11 @@ body {
   .hamburger {
     display: flex;
   }
-
-  .nav-shell {
-    justify-content: space-between;
-    align-items: center;
-  }
 }
 
 /* 漢堡動畫變 X */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(5px,5px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -121,12 +122,12 @@ body {
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(5px,-5px);
 }
 </style>
 
 <script>
-// 漢堡控制選單 & 變 X
+// 漢堡按鈕控制選單
 const hamburger = document.getElementById('hamburger');
 const mainNav = document.getElementById('mainNav');
 
