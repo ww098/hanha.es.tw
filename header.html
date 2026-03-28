@@ -38,31 +38,24 @@
     const mobileNav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
 
-    function toggleMenu(e) {
-      if(e) e.stopPropagation();
-      btn.classList.toggle('active');
-      mobileNav.classList.toggle('active');
-      overlay.classList.toggle('active');
+    function toggleMenu() {
+      // 統一使用 is-active 類別
+      const activeState = btn.classList.toggle('is-active');
+      mobileNav.classList.toggle('is-active');
+      overlay.classList.toggle('is-active');
       
-      const isActive = mobileNav.classList.contains('active');
-      document.body.style.overflow = isActive ? 'hidden' : '';
-      // 針對 Safari 修正：強制重繪
-      if(isActive) mobileNav.style.display = 'block';
+      document.body.style.overflow = activeState ? 'hidden' : '';
     }
 
     if(btn) btn.onclick = toggleMenu;
     if(overlay) overlay.onclick = toggleMenu;
 
-    // --- 精確偵測 Active 狀態 ---
-    const path = window.location.pathname;
-    const page = path.split("/").pop() || "index.html";
-    
+    // 自動偵測頁面路徑標記 Active
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
     document.querySelectorAll('.desktop-nav a, .mobile-nav-panel a').forEach(link => {
-      const href = link.getAttribute('href').replace('./', '');
-      if (page === href) {
+      const href = link.getAttribute('href').split("/").pop();
+      if (currentPage === href) {
         link.classList.add('active');
-      } else {
-        link.classList.remove('active');
       }
     });
   })();
