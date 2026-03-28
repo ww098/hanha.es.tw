@@ -3,16 +3,16 @@
     <a class="brand" href="./index.html">
       <img src="./home-preview.png" alt="寒合國小校徽" />
       <div>
-        <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
-        <strong>寒合國小</strong>
+        <span class="brand-kicker" style="display:block; font-size: 0.7rem; opacity: 0.7;">HANHA ELEMENTARY SCHOOL</span>
+        <strong style="font-size: 1.2rem;">寒合國小</strong>
       </div>
     </a>
 
-    <button class="menu-toggle" id="mobile-btn">
+    <button class="menu-toggle" id="nav-trigger" aria-label="切換選單">
       <span class="hamburger"></span>
     </button>
 
-    <nav class="main-nav" id="mobile-nav">
+    <nav class="main-nav" id="nav-menu">
       <a href="./index.html">首頁</a>
       <a href="./new-students.html">新生專區</a>
       <a href="./transfer.html">轉學專區</a>
@@ -23,17 +23,20 @@
 </header>
 
 <script>
-  // 使用最直接的 ID 綁定，避免 iPhone 上失效
+  // 使用更保險的事件監聽方式
   (function() {
-    const btn = document.getElementById('mobile-btn');
-    const nav = document.getElementById('mobile-nav');
+    const btn = document.getElementById('nav-trigger');
+    const menu = document.getElementById('nav-menu');
 
-    if (btn && nav) {
-      btn.onclick = function(e) {
+    if (btn && menu) {
+      // 同時支援點擊與觸控
+      const toggle = function(e) {
         e.preventDefault();
         btn.classList.toggle('active');
-        nav.classList.toggle('active');
+        menu.classList.toggle('active');
       };
+
+      btn.addEventListener('click', toggle);
     }
   })();
 </script>
