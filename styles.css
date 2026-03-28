@@ -515,9 +515,11 @@ img {
     max-width: 100%; /* 不超出父層 */
   }
 
-  /* 如果是 button，建議全寬 */
-  .mobile-only-buttons .button {
-    width: auto;
+   .mobile-only-buttons .button {
+    min-width: auto;     /* 移除原本最小寬度 */
+    width: 100%;         /* 滿版寬度 */
+    padding: 1rem;       /* 跟其他 info-card 相近的內距 */
+    text-align: center;  /* 文字置中 */
   }
 
   /* info-card 可以自動寬度 */
