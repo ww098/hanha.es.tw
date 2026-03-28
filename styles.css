@@ -563,6 +563,7 @@ img {
 }
 /* Header 基本樣式 */
 /* 桌機版 header 原版風格 */
+/* 桌機版 header 原版風格 */
 .site-header {
   position: sticky;
   top: 0;
@@ -601,7 +602,7 @@ img {
 
 .brand-kicker {
   display: block;
-  color: #537289; /* var(--muted) */
+  color: #537289;
   font-size: 0.72rem;
   letter-spacing: 0.18em;
 }
@@ -609,7 +610,7 @@ img {
 .brand strong {
   display: block;
   font-size: 1.1rem;
-  color: #17324a; /* var(--text) */
+  color: #17324a;
 }
 
 /* 主導覽列 */
@@ -620,20 +621,13 @@ img {
 }
 
 .main-nav a {
-  color: #537289; /* var(--muted) */
+  color: #537289;
   font-size: 0.95rem;
   font-weight: 500;
   text-decoration: none;
 }
 
 .main-nav a.active {
-  color: #16384b; /* var(--brand-night) */
+  color: #16384b;
   font-weight: 800;
-}
-
-/* 手機版暫時不用 */
-@media (max-width: 980px) {
-  .main-nav {
-    display: flex; /* 保持桌機風格，不隱藏 */
-  }
 }
