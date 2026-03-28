@@ -1,25 +1,28 @@
 <header class="site-header">
-  <div style="width: min(1120px, calc(100% - 2rem)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; min-height: 76px;">
-    
-    <a class="brand" href="./index.html" style="display: inline-flex; align-items: center; gap: 0.9rem; text-decoration: none; color: inherit;">
-      <img src="./home-preview.png" alt="校徽" style="width: 52px; height: 52px; border-radius: 14px; background: white; box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14);">
-      <div class="brand-text" style="display: flex; flex-direction: column;">
-        <span class="brand-kicker" style="display: block; color: #537289; font-size: 0.72rem; letter-spacing: 0.18em; opacity: 0.6;">HANHA ELEMENTARY SCHOOL</span>
-        <strong style="font-size: 1.1rem; font-weight: 700;">寒合國小</strong>
-      </div>
-    </a>
+  <div class="container">
+    <div class="nav-shell">
+      
+      <a class="brand" href="./index.html">
+        <img src="./home-preview.png" alt="校徽">
+        <div class="brand-text">
+          <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
+          <strong>寒合國小</strong>
+        </div>
+      </a>
 
-    <nav class="main-nav">
-      <a href="./index.html">首頁</a>
-      <a href="./new-students.html">新生專區</a>
-      <a href="./transfer.html">轉學專區</a>
-      <a href="./registration.html">報名專區</a>
-      <a href="./about.html">關於我們</a>
-    </nav>
+      <nav class="main-nav">
+        <a href="./index.html">首頁</a>
+        <a href="./new-students.html">新生專區</a>
+        <a href="./transfer.html">轉學專區</a>
+        <a href="./registration.html">報名專區</a>
+        <a href="./about.html">關於我們</a>
+      </nav>
 
-    <button class="menu-toggle" id="menuBtn">
-      <span class="hamburger"></span>
-    </button>
+      <button class="menu-toggle" id="menuBtn">
+        <span class="hamburger"></span>
+      </button>
+      
+    </div>
   </div>
 </header>
 
@@ -38,12 +41,15 @@
     const nav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
     if(!btn) return;
+
     function toggle() {
       btn.classList.toggle('is-active');
       nav.classList.toggle('is-active');
       overlay.classList.toggle('is-active');
+      // 切換捲動鎖定
       document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
     }
+
     btn.onclick = toggle;
     if(overlay) overlay.onclick = toggle;
   })();
