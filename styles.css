@@ -1,3 +1,4 @@
+/* --- 1. 核心變數與基礎重置 --- */
 :root {
   --bg: #f4f7fb;
   --panel: #ffffff;
@@ -15,45 +16,28 @@
   --radius-md: 14px;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   margin: 0;
   font-family: "Noto Sans TC", sans-serif;
-  background:
-    radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
-    linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
+  background: radial-gradient(circle at top right, rgba(110, 183, 216, 0.22), transparent 24rem),
+              linear-gradient(180deg, #f9fcff 0%, var(--bg) 45%, #eef4f8 100%);
   color: var(--text);
+  overflow-x: hidden;
 }
 
-a {
-  color: var(--link);
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-.container {
-  width: min(1120px, calc(100% - 2rem));
-  margin: 0 auto;
-}
-
+/* --- 2. 導覽列風格 (精確還原原版) --- */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 2000;
+  height: 76px;
+  display: flex;
+  align-items: center;
   backdrop-filter: blur(14px);
-  background: rgba(244, 247, 251, 0.82);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(244, 247, 251, 0.85);
   border-bottom: 1px solid rgba(217, 230, 240, 0.9);
 }
 
@@ -61,10 +45,11 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  min-height: 76px;
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
 }
 
+/* --- 3. 校名風格 (還原小字、透明度) --- */
 .brand {
   display: inline-flex;
   align-items: center;
@@ -81,573 +66,46 @@ img {
   box-shadow: 0 10px 24px rgba(26, 155, 184, 0.14);
 }
 
-.brand-kicker {
-  display: block;
-  color: var(--muted);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-}
-
-.brand strong {
-  font-size: 1.1rem;
-}
-
-.main-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-
-.main-nav a {
-  color: var(--muted);
-  font-size: 0.95rem;
-  text-decoration: none;
-}
-
-.main-nav a.active {
-  color: var(--brand-night);
-  font-weight: 800;
-}
-
-.hero {
-  padding: 4.5rem 0 3rem;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-  gap: 2rem;
-  align-items: center;
-}
-
-.hero-single {
-  grid-template-columns: 1fr;
-}
-
-.hero-single .hero-copy {
-  max-width: 40rem;
-}
-
-.eyebrow,
-.section-heading p,
-.footer-title {
-  margin: 0 0 0.75rem;
-  color: var(--brand-deep);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 0.82rem;
-}
-
-.hero h1,
-.section-heading h2 {
-  margin: 0;
-  font-family: "Noto Serif TC", serif;
-  line-height: 1.14;
-}
-
-.hero h1 {
-  font-size: clamp(2.6rem, 5vw, 4.4rem);
-}
-
-.hero-text {
-  margin: 1.25rem 0 0;
-  max-width: 40rem;
-  color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.9;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.mini-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.mini-links a {
-  color: var(--brand-night);
-  font-weight: 700;
-}
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 144px;
-  padding: 0.95rem 1.4rem;
-  border-radius: 999px;
-  font-weight: 700;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-decoration: none;
-}
-
-.button:hover,
-.link-card:hover,
-.notice-card:hover,
-.pill-row a:hover {
-  transform: translateY(-2px);
-}
-
-.primary {
-  background: linear-gradient(135deg, var(--brand-deep), #15738a);
-  color: white;
-  box-shadow: 0 20px 30px rgba(21, 115, 138, 0.24);
-}
-
-.secondary {
-  background: white;
-  border: 1px solid var(--line);
-  color: var(--brand-night);
-}
-
-.hero-card {
-  padding: 2rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(238, 245, 251, 0.96));
-  border: 1px solid rgba(217, 230, 240, 0.9);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow);
-}
-
-.hero-card img {
-  width: min(100%, 320px);
-  margin: 0 auto;
-}
-
-.hero-card-copy {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.hero-card-copy span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.hero-card-copy strong {
-  display: block;
-  margin-top: 0.45rem;
-  font-size: 1.2rem;
-}
-
-.quick-links,
-.announcements,
-.resources {
-  padding: 2rem 0 1rem;
-}
-
-.section-heading {
-  margin-bottom: 1.4rem;
-}
-
-.section-heading h2 {
-  font-size: clamp(1.7rem, 3vw, 2.5rem);
-}
-
-.link-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.link-card,
-.notice-card {
-  display: block;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-decoration: none;
-}
-
-.link-card {
-  min-height: 180px;
-  padding: 1.35rem;
-  text-align: center;
-}
-
-.link-card span {
-  display: inline-flex;
-  width: 42px;
-  height: 42px;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  border-radius: 50%;
-  background: var(--panel-soft);
-  color: var(--brand-deep);
-  font-weight: 800;
-}
-
-.link-card strong,
-.notice-card strong {
-  display: block;
-  margin-top: 1rem;
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
-
-.link-card small,
-.notice-card small,
-.resource-group h3,
-.site-footer p {
-  color: var(--muted);
-}
-
-.link-card small {
-  display: block;
-  margin-top: 0.6rem;
-  line-height: 1.7;
-}
-
-.notice-list {
-  display: grid;
-  gap: 1rem;
-}
-
-.notice-card {
-  padding: 1.2rem 1.3rem;
-  text-align: left;
-}
-
-.notice-card.featured {
-  background: linear-gradient(135deg, #143d4f, #1b6880);
-  border-color: transparent;
-  color: white;
-}
-
-.notice-card.featured small {
-  color: rgba(255, 255, 255, 0.74);
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-}
-
-.resource-groups {
-  display: grid;
-  gap: 1rem;
-}
-
-.resource-group {
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-}
-
-.resource-group h3 {
-  margin: 0 0 1rem;
-  font-size: 1.05rem;
-}
-
-.pill-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-}
-
-.pill-row a {
-  padding: 0.8rem 1rem;
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-  color: var(--brand-night);
-  text-decoration: none;
-}
-
-.pill-row a:hover {
-  border-color: rgba(26, 155, 184, 0.45);
-}
-
-.disabled-link {
-  text-decoration: line-through;
-  opacity: 0.72;
-}
-
-.site-footer {
-  margin-top: 3rem;
-  padding: 2.5rem 0 3.5rem;
-  background: var(--brand-night);
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.page-hero {
-  padding: 4rem 0 1.5rem;
-}
-
-.page-intro {
-  max-width: 42rem;
-  color: var(--muted);
-  line-height: 1.9;
-  font-size: 1.02rem;
-}
-
-.page-section {
-  padding: 1.25rem 0 3rem;
-}
-
-.content-stack {
-  display: grid;
-  gap: 1rem;
-}
-
-.content-card {
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08);
-}
-
-.content-card h2 {
-  margin: 0 0 0.9rem;
-  font-size: 1.12rem;
-}
-
-.content-card p {
-  margin: 0.55rem 0 0;
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-.content-card p a {
-  color: var(--link);
-  font-weight: 700;
-}
-
-.content-card ul {
-  margin: 0.8rem 0 0;
-  padding-left: 1.25rem;
-  color: var(--muted);
-  line-height: 1.9;
-}
-
-.content-card li + li {
-  margin-top: 0.35rem;
-}
-
-.content-card strong {
-  color: var(--text);
-}
-
-.card-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.two-up {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.three-up {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.info-card {
-  display: block;
-  padding: 1.4rem;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 14px 32px rgba(22, 56, 75, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-align: center;
-  text-decoration: none;
-}
-
-.info-card:hover {
-  transform: translateY(-2px);
-}
-
-.info-card strong {
-  display: block;
-  font-size: 1.06rem;
-}
-
-.info-card p {
-  margin: 0.7rem 0 0;
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-.page-back {
-  margin-top: 1.25rem;
-}
-
-.back-button {
-  min-width: 0;
-  padding: 0.7rem 1.1rem;
-  font-size: 0.92rem;
-  border-radius: 999px;
-}
-
-.site-footer p {
-  margin: 0.28rem 0;
-  color: rgba(255, 255, 255, 0.76);
-  line-height: 1.8;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-}
-
-.footer-title {
-  color: #9cd9e6;
-}
-
-.footer-mail {
-  display: block;
-  margin-bottom: 0.8rem;
-  color: white;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.site-footer .footer-grid > div:last-child {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-@media (max-width: 980px) {
-  .hero-grid,
-  .footer-grid,
-  .link-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .link-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .two-up,
-  .three-up {
-    grid-template-columns: 1fr;
-  }
-
-  .main-nav {
-    display: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .hero {
-    padding-top: 3rem;
-  }
-
-  .nav-shell {
-    min-height: 68px;
-  }
-
-  .link-grid,
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-card {
-    padding: 1.4rem;
-  }
-
-  .button,
-  .pill-row a {
-    width: 100%;
-  }
-}
-/* --- 1. 基礎重置與 Header 結構 --- */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; color: #333; }
-
-.site-header {
-  background: rgba(255, 255, 255, 0.9);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 80px;
-  z-index: 2000;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  display: flex;
-  align-items: center;
-}
-
-.nav-shell {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 25px;
-}
-
-/* --- 2. 校名風格：精確還原 (小字、透明度) --- */
-.brand { 
-  display: flex; 
-  align-items: center; 
-  text-decoration: none; 
-  color: #333;
-}
-.brand img { 
-  width: 50px; height: 50px; 
-  margin-right: 12px; 
-}
 .brand-text {
   display: flex;
   flex-direction: column;
 }
+
 .brand-en {
-  font-size: 10px; /* 小字體 */
-  opacity: 0.5;    /* 帶有透明度 */
-  letter-spacing: 0.5px;
-  line-height: 1.1;
-  font-family: Arial, sans-serif;
+  display: block;
+  font-size: 0.7rem; /* 小字體 */
+  color: var(--muted);
+  opacity: 0.6;      /* 帶有透明度 */
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
+
 .brand strong {
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text);
   line-height: 1.2;
 }
 
-/* --- 3. 電腦版導覽列：還原原本風格 --- */
+/* --- 4. 電腦版導覽連結 --- */
 .desktop-nav {
   display: flex;
-  gap: 30px; /* 使用 gap 控製間距最自然 */
-}
-.desktop-nav a {
-  text-decoration: none;
-  color: #444;
-  font-weight: 500;
-  font-size: 16px;
-  transition: 0.2s;
-}
-.desktop-nav a.active {
-  color: #0056b3;
-  font-weight: 700;
+  gap: 1.8rem;
 }
 
-/* --- 4. 漢堡按鈕：解決叉叉消失問題 --- */
+.desktop-nav a {
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.desktop-nav a.active {
+  color: var(--brand-night);
+  font-weight: 800;
+}
+
+/* --- 5. 漢堡按鈕 (修復叉叉不出來) --- */
 .menu-toggle {
   display: none;
   width: 40px; height: 40px;
@@ -655,21 +113,21 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; color: #333;
   cursor: pointer; position: relative; z-index: 3001;
 }
 
-/* 漢堡三條線 */
 .hamburger, .hamburger::before, .hamburger::after {
   content: ''; display: block;
   width: 24px; height: 2px;
-  background: #333;
+  background: var(--text);
   position: absolute; left: 8px;
-  transition: transform 0.3s ease, top 0.3s ease, opacity 0.2s;
+  transition: all 0.3s ease;
 }
+
 .hamburger { top: 19px; }
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-/* 叉叉動畫：強制執行 */
+/* 叉叉動畫強制修正 */
 .menu-toggle.is-active .hamburger {
-  background: transparent !important; /* 中間線消失 */
+  background: transparent !important;
 }
 .menu-toggle.is-active .hamburger::before {
   top: 0 !important;
@@ -682,43 +140,45 @@ body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; color: #333;
   -webkit-transform: rotate(-45deg) !important;
 }
 
-/* --- 5. 手機版面板與遮罩 --- */
+/* --- 6. 手機版面板 --- */
 .mobile-nav-panel {
   position: fixed;
-  top: 0; right: -280px; /* 初始藏在右邊 */
+  top: 0; right: -280px;
   width: 280px; height: 100vh;
-  background: #fff;
+  background: var(--panel);
   z-index: 3000;
   padding-top: 100px;
-  transition: right 0.3s ease;
-  box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
 }
+
 .mobile-nav-panel.is-active {
   right: 0;
 }
+
 .mobile-nav-panel a {
   padding: 20px 40px;
   text-decoration: none;
-  color: #333;
+  color: var(--text);
   font-size: 1.1rem;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid var(--line);
 }
 
 .nav-overlay {
   display: none;
   position: fixed; top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0,0,0,0.3);
+  background: rgba(22, 56, 75, 0.3);
   z-index: 2999;
 }
-.nav-overlay.is-active {
-  display: block;
+.nav-overlay.is-active { display: block; }
+
+/* --- 7. 響應式切換 --- */
+@media (max-width: 992px) {
+  .desktop-nav { display: none !important; }
+  .menu-toggle { display: block !important; }
 }
 
-/* --- 6. 響應式切換 --- */
-@media (max-width: 992px) {
-  .desktop-nav { display: none; }
-  .menu-toggle { display: block; }
-}
+/* ... 以下保留你原本的 Hero、Card 等其他樣式 ... */
