@@ -1,30 +1,31 @@
 <header class="site-header">
   <div class="container nav-shell">
+    <!-- 品牌 LOGO -->
     <a class="brand" href="./index.html">
-      <img src="./home-preview.png" alt="寒合國小校徽">
-      <div class="brand-text">
+      <img src="./home-preview.png" alt="寒合國小校徽" />
+      <div>
         <span class="brand-kicker">HANHA ELEMENTARY SCHOOL</span>
         <strong>寒合國小</strong>
       </div>
     </a>
 
-    <!-- 主導覽列（桌機版） -->
+    <!-- 桌機版導覽列 -->
     <nav class="main-nav" aria-label="主導覽">
-      <a href="./index.html">首頁</a>
+      <a class="active" href="./index.html">首頁</a>
       <a href="./new-students.html">新生專區</a>
       <a href="./transfer.html">轉學專區</a>
       <a href="./registration.html">報名專區</a>
-      <a class="active" href="./about.html">關於我們</a>
+      <a href="./about.html">關於我們</a>
     </nav>
 
-    <!-- 漢堡按鈕（手機版） -->
-    <button class="menu-toggle" id="menuBtn" aria-label="開啟選單">
+    <!-- 漢堡按鈕（手機） -->
+    <button class="menu-toggle" id="menuBtn">
       <span class="hamburger"></span>
     </button>
   </div>
 </header>
 
-<!-- 手機版選單面板 -->
+<!-- 手機滑出選單 -->
 <nav class="mobile-nav-panel" id="mobileNav">
   <a href="./index.html">首頁</a>
   <a href="./new-students.html">新生專區</a>
@@ -32,14 +33,17 @@
   <a href="./registration.html">報名專區</a>
   <a href="./about.html">關於我們</a>
 </nav>
+
+<!-- 遮罩 -->
 <div class="nav-overlay" id="navOverlay"></div>
 
+<!-- 手機選單功能 -->
 <script>
   (function() {
     const btn = document.getElementById('menuBtn');
     const nav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
-    if(!btn || !nav || !overlay) return;
+    if (!btn || !nav || !overlay) return;
 
     function toggle() {
       btn.classList.toggle('is-active');
@@ -48,7 +52,7 @@
       document.body.style.overflow = nav.classList.contains('is-active') ? 'hidden' : '';
     }
 
-    btn.addEventListener('click', toggle);
-    overlay.addEventListener('click', toggle);
+    btn.onclick = toggle;
+    overlay.onclick = toggle;
   })();
 </script>
